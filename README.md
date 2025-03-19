@@ -48,4 +48,3 @@ Example data is provided in the `example_data` directory:
 - `DB.fasta`: Example database FASTA file.
 - `QUERY.fasta`: Example query FASTA file
 
-python3 annotate.py --input_faa ./example_data/QUERY.fasta --db ./DB/mmseq2_db.pkl --out mmseq2_result.tsv
