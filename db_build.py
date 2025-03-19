@@ -1,6 +1,5 @@
 from pathlib import Path
 import argparse
-import concurrent.futures
 import multiprocessing
 from Bio import SeqIO
 from embedder import ProteinEmbedder
@@ -18,7 +17,7 @@ def parse_args() -> argparse.Namespace:
     # parser.add_argument('--dim', type=int, required=True, help='Dimensionality of the embeddings')
     parser.add_argument('--num_workers', type=int, default=multiprocessing.cpu_count(), 
                        help='Number of worker threads to use (default: number of CPU cores)')
-    parser.add_argument('--output', type=str, default='protein_data.pkl', help='Output file path')
+    parser.add_argument('--db', type=str, default='protein_data.pkl', help='Filename of the database')
     args = parser.parse_args()
 
     # Validate arguments
@@ -77,7 +76,7 @@ def main():
                     if cnt % 100 == 0:  # Print progress every 100 sequences
                         print(f"Processed {cnt}/{total_sequences} sequences")
             except Exception as exc:
-                print(f"Sequence {seq_index} generated an exception: {exc}")
+                print(f"Seq generated an exception: {exc}")
     
     print(f"Successfully encoded {len(list_of_vectors)} sequences")
     
@@ -85,10 +84,10 @@ def main():
     if not db_path.exists():
         db_path.mkdir(parents=True, exist_ok=True)
     
-    with open(f'DB/{args.output}', 'wb') as f:
+    with open(f'DB/{args.db}', 'wb') as f:
         pickle.dump(list_of_vectors, f)
     # print(list_of_vectors)
-    print(f"Database saved to: DB/{args.output}")
+    print(f"Database saved to: DB/{args.db}")
 
 if __name__ == '__main__':
     main()

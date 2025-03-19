@@ -1,4 +1,4 @@
-biopython
-numpy
-scipy==1.10.1
-scikit-learn
+biopython==1.85
+numpy==2.2.4
+scikit-learn==1.6.1
+scipy==1.15.2

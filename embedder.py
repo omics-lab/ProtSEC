@@ -14,13 +14,13 @@ class ProteinEmbedder():
 
     def encode(self, sequence):
         """
-        Encode a protein sequence into a fixed-length complex vector.
+        Encode a protein sequence into a complex vector.
 
         Args:
             sequence: Protein sequence as string
 
         Returns:
-            Fixed-length complex vector representing the sequence
+           complex vector representing the sequence
         """
         # Convert sequence to complex numbers
         complex_seq = []
@@ -36,6 +36,3 @@ class ProteinEmbedder():
         
         fft_result = fft(complex_seq, n=2048)
         return fft_result
-        # normalize the complex vector
-        # normalized_v = normalize(fft_result)
-        # return normalized_v
