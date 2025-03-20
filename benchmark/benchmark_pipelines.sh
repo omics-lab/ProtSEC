@@ -1,16 +1,27 @@
 cd /Users/rashedulislam/Documents/git_repos/PA-SigPro-Pipeline
 
-# db
+cd 
+uniref50=/mnt/c/GeneAnnotation/data/uniref50.fasta
+recG=ATP-dependent_DNA_helicase_RecG_only.fasta
+
+python3 db_build.py \
+    --fasta_path $uniref50 \
+    --db /mnt/c/GeneAnnotation/data/uniref50.pkl
+
 python3 annotate.py \
-    --input_faa ./example_data/QUERY.fasta \                                       
-    --db ./DB/mmseq2_db.pkl \
-    --out mmseq2_result.tsv     
+    --input_faa $recG \
+    --db /mnt/c/GeneAnnotation/data/uniref50.pkl \
+    --out ./data/recG_uniref50_result.tsv
+
+# db
+
+    
 
 # predict
 python3 annotate.py \
     --input_faa ../GeneAnnotation/data/ATP-dependent_DNA_helicase_RecG_only.fasta \
     --db ./DB/mmseq2_db.pkl \
-    --out ATP-dependent_DNA_helicase_RecG_results.tsv
+    --out ./example_data/ATP-dependent_DNA_helicase_RecG_results.tsv
 
 less ATP-dependent_DNA_helicase_RecG_results.tsv | awk '!seen[$1]++' | awk -F'\t' '{print $2}' | wc -l
 # 34392

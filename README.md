@@ -28,16 +28,16 @@ pip install -r requirements.txt
 To build the database from a FASTA file, run:
 ```
 python3 db_build.py \
-    --fasta_path ./example_data/DB.fasta \
-    --db mmseq2_db.pkl
+    --fasta_path ./data/DB.fasta \
+    --db ./data/mmseq2_db.pkl
 ```
 
 ###### Annotating Sequences
 ```
 python3 annotate.py \
-    --input_faa ./example_data/QUERY.fasta \
-    --db ./DB/mmseq2_db.pkl \
-    --out mmseq2_result.tsv
+    --input_faa ./data/QUERY.fasta \
+    --db ./data/mmseq2_db.pkl \
+    --out ./data/mmseq2_result.tsv
 ```
 
 
