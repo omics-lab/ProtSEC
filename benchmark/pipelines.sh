@@ -1,19 +1,46 @@
 #!bin/bash
 
-cd ../data/
+# mkdir data/temp
+cd ../
 
-mkdir temp
-
-for f in uniprot_sprot*fasta; do
+for f in data/uniprot_sprot*fasta; do
+    echo "$f"
+    filename=$(basename "$f")  # Extract only the filename
     python3 db_build.py \
         --fasta_path "$f" \
-        --db "${f}_db.pkl"
+        --db "${filename}_db.pkl"
 done
 
-python3 annotate.py \
-    --input_faa ./data/QUERY.fasta \
-    --db ./DB/mmseq2_db.pkl \
-    --out ./data/mmseq2_result.tsv    
+# Annotate
+for db in DB/uni*_db.pkl; do
+    echo "$db"
+    db_name=$(basename "$db")  # Extract only the filename
+    python3 annotate.py \
+        --input_faa ./data/uniprot_sprot_5000.fasta \
+        --db "$db" \
+        --out ./benchmark/PA-SigPro/"${db_name}_PA-SigPro_result.tsv"
+done
+
+rm -r DB
+
+# Analysis 
+cd ./benchmark/PA-SigPro
+
+for f in *.tsv; do 
+    echo "Processing: $f";
+    awk '!seen[$1]++' "$f" > "${f}.tophit";
+done
+
+k=uniprot_sprot_10000.fasta_db.pkl_PA-SigPro_result.tsv.tophit
+# count correct prediction
+for k in *tophit; do
+echo $k;
+comm -12 <(less ../blastp/uniprot_sprot_5000.fasta.id | awk '{print $2"|"$1}' | sort) <( less $k | awk  awk -F'\t' '{ match($0, /GN=([^ ]+)/, arr); if (arr[1]) print arr[1] "\t" $0}' | awk '{print $2"|"$1}' | sort) | wc -l;
+done | paste - - 
+
+
+
+
 
 # test blast results
 awk '$1 == $2 {count++} END {print count}' uniprot_sprot_5000_vs_uniprot_sprot_5000_blastp_db_blastp_results.txt

@@ -40,11 +40,13 @@ python3 annotate.py \
     --out ./data/mmseq2_result.tsv
 ```
 
+Output tsv contains score in the 3rd column which is correlation value between query and hit.
 
 ###### Example data
 Example data is provided in the `example_data` directory:
 
 
 - `DB.fasta`: Example database FASTA file.
-- `QUERY.fasta`: Example query FASTA file
+- `QUERY.fasta`: Example query FASTA file.
+
 
