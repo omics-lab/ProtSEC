@@ -1,0 +1,5 @@
+uniprot_sprot_10000.fasta_db.pkl_PA-SigPro_result.tsv.tophit	2643	52.86
+uniprot_sprot_20000.fasta_db.pkl_PA-SigPro_result.tsv.tophit	2976	59.52
+uniprot_sprot_40000.fasta_db.pkl_PA-SigPro_result.tsv.tophit	3263	65.26
+uniprot_sprot_80000.fasta_db.pkl_PA-SigPro_result.tsv.tophit	3660	73.2
+uniprot_sprot_5000.fasta_db.pkl_PA-SigPro_result.tsv.tophit	5000	100

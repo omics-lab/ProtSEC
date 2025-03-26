@@ -44,5 +44,5 @@ cd ../benchmark/blastp/
 # count correct prediction
 for k in *_db_blastp_results.txt.duprem.txt; do
 echo $k;
-comm -12 <(less uniprot_sprot_5000.fasta.id | awk '{print $2"|"$1}' | sort) <( less $k | awk '{ match($0, /GN=([^ ]+)/, arr); if (arr[1]) print arr[1] "\t" $0}' | awk '{print $2"|"$1}' | sort) | wc -l;
-done 
+comm -12 <(less uniprot_sprot_5000.fasta.id | awk '{print tolower($2)"|"tolower($1)}' | sort) <( less $k | awk '{ match($0, /GN=([^ ]+)/, arr); if (arr[1]) print arr[1] "\t" $0}' | awk '{print tolower($2)"|"tolower($1)}' | sort) | wc -l;
+done | paste - - | awk '{print $1 "\t" $2 "\t" 100*($2/5000)}' | sort -k3 >acc_percent_blastp.txt
