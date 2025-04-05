@@ -17,6 +17,8 @@ def parse_args() -> argparse.Namespace:
     # parser.add_argument('--dim', type=int, required=True, help='Dimensionality of the embeddings')
     parser.add_argument('--num_workers', type=int, default=multiprocessing.cpu_count(), 
                        help='Number of worker threads to use (default: number of CPU cores)')
+    parser.add_argument('--dim_reduct', type=str, default='MDS', choices=['UMAP', 't-SNE', 'MDS'],
+                        help='Algorithm for dimensionality reduction (default: t-SNE)')
     parser.add_argument('--db', type=str, default='protein_data.pkl', help='Filename of the database')
     args = parser.parse_args()
 
@@ -46,11 +48,15 @@ def main():
     fasta_path = args.fasta_path
     # dim = args.dim
     num_workers = args.num_workers
+
+    # dimension reduction method
+    dim_reduct = args.dim_reduct
+    print(f"Using dimensionality reduction method: {dim_reduct}")
     
     print(f"Using {num_workers} worker threads")
     
     # Initialize the encoder
-    protein_encoder = ProteinEmbedder()
+    protein_encoder = ProteinEmbedder(dim_reduct)
     
     # Read all sequences from the FASTA file first
     sequences = list(SeqIO.parse(args.fasta_path, "fasta"))

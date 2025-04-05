@@ -9,25 +9,10 @@ warnings.filterwarnings('ignore')
 
 class AminoAcidEncoder:
     """
-    A class for encoding protein sequences into fixed-length numerical vectors.
-    
-    The encoding process uses:
-    - Complex number embeddings derived from BLOSUM62 matrix
-    - Multiple dimensionality reduction techniques (MDS, t-SNE, UMAP)
-    - Fast Fourier Transform for sequence processing
+    Class to encode amino acids into complex number representations using MDS.
     """
-
+    
     def __init__(self):
-        """
-        Initializes the encoder with default amino acid alphabet.
-        Extended alphabet includes B, X, Z for handling ambiguous amino acids.
-        
-        Args:
-            method (str): Dimensionality reduction method: 'mds', 'tsne', or 'umap'
-            perplexity (float): Perplexity parameter for t-SNE (typically 5-50)
-            n_neighbors (int): Number of neighbors for UMAP
-            min_dist (float): Minimum distance parameter for UMAP
-        """
         self.amino_acids = list("ABCDEFGHIKLMNPQRSTVWYZ")  # Extended amino acid alphabet
         # Alternative standard 20 amino acids: "ARNDCQEGHILKMFPSTWYV"
         self.aa_to_complex = self._create_complex_embeddings()
@@ -125,4 +110,5 @@ class AminoAcidEncoder:
 # Main execution block for testing
 if __name__ == "__main__":
     encoder = AminoAcidEncoder()
-    encoder.visualize_embeddings()
+    # encoder.visualize_embeddings()
+    print(encoder.get_amino_acid_to_complex())

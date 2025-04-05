@@ -9,8 +9,16 @@ def normalize(x: np.ndarray) -> np.ndarray:
 
 class ProteinEmbedder():
 
-    def __init__(self):
-        pass
+    def __init__(self, method):
+        """
+        Initialize the ProteinEmbedder with the specified method.
+
+        Args:
+            method: Method for embedding ('t-SNE', 'MDS', 'UMAP')
+        """
+        self.aa_to_complex = aa_to_complex[method]
+        self.aa_to_complex['X'] = sum(num for num in aa_to_complex[method].values()) / len(aa_to_complex[method])
+        
 
     def encode(self, sequence):
         """
@@ -27,10 +35,10 @@ class ProteinEmbedder():
 
         for aa in sequence.upper():
             try:
-                complex_seq.append(aa_to_complex[aa])
+                complex_seq.append(self.aa_to_complex[aa])
             except KeyError:
                 # Handle unknown amino acids
-                complex_seq.append(aa_to_complex['X'])
+                complex_seq.append(self.aa_to_complex['X'])
         # Apply FFT
         complex_seq = np.array(complex_seq)
         

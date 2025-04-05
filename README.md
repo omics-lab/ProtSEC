@@ -27,17 +27,21 @@ pip install -r requirements.txt
 
 To build the database from a FASTA file, run:
 ```
+# Available methods: `MDS`, `t-SNE`, `UMAP`
 python3 db_build.py \
     --fasta_path ./data/DB.fasta \
-    --db mmseq2_db.pkl
+    --dim_reduct MDS \
+    --db mds_db.pkl
 ```
 
-###### Annotating Sequences
+###### Annotating Sequences:
+
 ```
-python3 annotate.py \
-    --input_faa ./data/QUERY.fasta \
-    --db ./DB/mmseq2_db.pkl \
-    --out ./data/mmseq2_result.tsv
+python3 annotate.py --input_faa ./data/QUERY.fasta \
+    --db ./DB/mds_db.pkl \
+    --dim_reduct MDS \
+    --top_hit 1 \
+    --out ./data/result.tsv
 ```
 
 Output tsv contains score in the 3rd column which is correlation value between query and hit.

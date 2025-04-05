@@ -16,24 +16,15 @@ warnings.filterwarnings('ignore')
 
 class AminoAcidEncoder:
     """
-    A class for encoding protein sequences into fixed-length numerical vectors.
-    
-    The encoding process uses:
-    - Complex number embeddings derived from BLOSUM62 matrix
-    - Multiple dimensionality reduction techniques (MDS, t-SNE, UMAP)
-    - Fast Fourier Transform for sequence processing
+    A class to encode amino acids into complex number representations.
+    The encoding is based on the BLOSUM62 substitution matrix and uses
+    dimensionality reduction techniques to project the amino acids into a
+    2D complex plane.
     """
 
     def __init__(self):
         """
-        Initializes the encoder with default amino acid alphabet.
-        Extended alphabet includes B, X, Z for handling ambiguous amino acids.
-        
-        Args:
-            method (str): Dimensionality reduction method: 'mds', 'tsne', or 'umap'
-            perplexity (float): Perplexity parameter for t-SNE (typically 5-50)
-            n_neighbors (int): Number of neighbors for UMAP
-            min_dist (float): Minimum distance parameter for UMAP
+        Initializes the encoder with amino acid properties and dissimilarity matrix.
         """
         self.amino_acids = list("ABCDEFGHIKLMNPQRSTVWYZ")  # Extended amino acid alphabet
         # Alternative standard 20 amino acids: "ARNDCQEGHILKMFPSTWYV"
@@ -134,30 +125,5 @@ class AminoAcidEncoder:
 # Main execution block for testing
 if __name__ == "__main__":
     encoder = AminoAcidEncoder()
-    encoder.visualize_embeddings()
-
-    # # Create encoders using different methods
-    # methods = ['mds', 'tsne', 'umap']
-    # encoders = {method: AminoAcidEncoder(method=method) for method in methods}
-    
-    # # Compare all methods visually
-    # encoders['mds'].compare_all_methods()
-    
-    # # Compute and display statistics for comparison
-    # print("\nEmbedding Quality Comparison:")
-    # print("-" * 80)
-    # print(f"{'Method':<10} | {'Pearson Corr':^15} | {'Spearman Corr':^15} | {'Stress':^10} | {'NN Preservation':^15}")
-    # print("-" * 80)
-    
-    # for method, encoder in encoders.items():
-    #     stats = encoder.compute_embedding_statistics()
-    #     print(f"{stats['method']:<10} | {stats['pearson_correlation']:^15.4f} | "
-    #           f"{stats['spearman_correlation']:^15.4f} | {stats['stress']:^10.4f} | "
-    #           f"{stats['nearest_neighbor_preservation']:^15.4f}")
-    
-    # # Example of encoding a sequence using UMAP embeddings
-    # test_sequence = "MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTPAVHASLDKFLASVSTVLTSKYR"
-    # encoded_seq = encoders['umap'].encode_sequence(test_sequence[:10])
-    # print(f"\nExample encoding of sequence '{test_sequence[:10]}' using UMAP:")
-    # print(encoded_seq)
-    
+    # encoder.visualize_embeddings()
+    print(encoder.get_amino_acid_to_complex())

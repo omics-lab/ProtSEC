@@ -12,6 +12,9 @@ def parse_args():
         description='Annotate proteins using vector database'
     )
     parser.add_argument('--input_faa', type=str, required=True, help='Path to input FAA file to annotate')
+    parser.add_argument('--dim_reduct', type=str, default='MDS', choices=['UMAP', 't-SNE', 'MDS'],
+                        help='Algorithm for dimensionality reduction (default: t-SNE)')
+    parser.add_argument('--top_hit', type=int, default=1, help='Number of top hits to return')
     parser.add_argument('--db', type=str, required=True, help='path to the precomputed database')
     parser.add_argument('--out', type=str, required=True, help='Path to output TSV file')
 
@@ -59,7 +62,9 @@ def main():
         list_of_vectors = pickle.load(f)
     
     # print(list_of_vectors)
-    encoder = ProteinEmbedder()
+    encoder = ProteinEmbedder(args.dim_reduct)
+    print(f"Using dimensionality reduction method: {args.dim_reduct}")
+    print(f"Using {args.top_hit} top hits")
     sequences = list(SeqIO.parse(args.input_faa, 'fasta'))
     print(f"Found {len(sequences)} sequences to annotate")
 
@@ -82,7 +87,7 @@ def main():
         
         top_indices = []
         # Find top k elements
-        for _ in range(5):
+        for _ in range(args.top_hit):
             idx = np.argmax(scores_copy)
             top_indices.append(idx)
             scores_copy[idx] = float('-inf')
@@ -104,3 +109,7 @@ def main():
 if __name__ == '__main__':
     main()
 
+# python3 annotate.py \
+#     --input_faa ./data/QUERY.fasta \
+#     --db ./DB/mmseq2_db.pkl \
+#     --out ./data/mmseq2_result.tsv
