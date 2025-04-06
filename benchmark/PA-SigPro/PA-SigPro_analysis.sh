@@ -1,15 +1,13 @@
 #!bin/bash
 
-# mkdir data/temp
-cd ../
-
+# build db pkl 
 for f in data/uniprot_sprot*fasta; do
     echo "$f"
-    filename=$(basename "$f")  # Extract only the filename
+    filename=$(basename "$f")  
     python3 db_build.py \
         --fasta_path "$f" \
         --db "${filename}_db.pkl"
-done
+done 
 
 # Annotate
 for db in DB/uni*_db.pkl; do
@@ -21,11 +19,12 @@ for db in DB/uni*_db.pkl; do
         --out ./benchmark/PA-SigPro/"${db_name}_PA-SigPro_result.tsv"
 done
 
-rm -r DB
+# rm -r DB
 
 # Analysis 
-cd ./benchmark/PA-SigPro
+cd ./benchmark/PA-SigPro/
 
+# remove duplicated lines 
 for f in *.tsv; do 
     echo "Processing: $f";
     awk '!seen[$1]++' "$f" > "${f}.tophit";

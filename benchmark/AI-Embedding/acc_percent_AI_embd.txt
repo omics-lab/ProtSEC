@@ -1,2 +1,4 @@
 uniprot_sprot_5k_against_10k_prot_bert.tsv.tophit	1770	35.4
+uniprot_sprot_5k_against_20k_prot_bert.tsv.tophit	2356	47.12
 uniprot_sprot_5k_against_10k_esm2.tsv.tophit	2612	52.24
+uniprot_sprot_5k_against_20k_esm2.tsv.tophit	2952	59.04

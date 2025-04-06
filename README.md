@@ -54,3 +54,10 @@ Example data is provided in the `example_data` directory:
 - `QUERY.fasta`: Example query FASTA file.
 
 
+###### Benchmark
+
+Dependencies:
+- blast
+- SigProt
+
+`bash benchmark.sh`

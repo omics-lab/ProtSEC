@@ -1,5 +1,5 @@
+uniprot_sprot_5000_vs_uniprot_sprot_5000_blastp_db_blastp_results.txt.duprem.txt	5000	100
 uniprot_sprot_5000_vs_uniprot_sprot_10000_blastp_db_blastp_results.txt.duprem.txt	2812	56.24
 uniprot_sprot_5000_vs_uniprot_sprot_20000_blastp_db_blastp_results.txt.duprem.txt	3153	63.06
 uniprot_sprot_5000_vs_uniprot_sprot_40000_blastp_db_blastp_results.txt.duprem.txt	3401	68.02
 uniprot_sprot_5000_vs_uniprot_sprot_80000_blastp_db_blastp_results.txt.duprem.txt	3769	75.38
-uniprot_sprot_5000_vs_uniprot_sprot_5000_blastp_db_blastp_results.txt.duprem.txt	5000	100

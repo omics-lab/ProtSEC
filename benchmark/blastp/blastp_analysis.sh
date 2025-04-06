@@ -1,20 +1,19 @@
 #!bin/bash
 
-cd ../data/
+cd data
 
-mkdir temp
+mkdir -p temp_blastdb
 
 # blastp db
 for f in uniprot_sprot_[1-8]*.fasta; do 
     echo "Processing: $f"; 
-    makeblastdb -in "$f" -dbtype prot -out temp/"${f%.fasta}_blastp_db";
+    makeblastdb -in "$f" -dbtype prot -out temp_blastdb/"${f%.fasta}_blastp_db";
 done
 
 # predict
-for db in temp/uniprot_sprot_5000_blastp_db temp/uniprot_sprot_10000_blastp_db temp/uniprot_sprot_20000_blastp_db temp/uniprot_sprot_40000_blastp_db temp/uniprot_sprot_80000_blastp_db; do 
+for db in temp_blastdb/uniprot_sprot_5000_blastp_db temp_blastdb/uniprot_sprot_10000_blastp_db temp_blastdb/uniprot_sprot_20000_blastp_db temp_blastdb/uniprot_sprot_40000_blastp_db temp_blastdb/uniprot_sprot_80000_blastp_db; do 
     echo "DB name: $db"
 
-    # Extract database name without path for cleaner output filenames
     db_name=$(basename "$db")
 
     blastp -query "uniprot_sprot_5000.fasta" -db "$db" \
@@ -34,13 +33,11 @@ done
 less uniprot_sprot_5000.fasta | grep ">" | awk '{ gsub(">", ""); print $1 "\t" $0}' | awk '{ match($0, /GN=([^ ]+)/, arr); if (arr[1]) print arr[1] "\t" $0}' >../benchmark/blastp/uniprot_sprot_5000.fasta.id
 
 rm *_blastp_db_blastp_results.txt
-rm -r temp
-
-# awk '{ match($0, /GN=([^ ]+)/, arr); if (arr[1]) print arr[1] "\t" $0}' uniprot_sprot_5000_vs_uniprot_sprot_10000_blastp_db_blastp_results.txt.duprem.txt | head
-# k=uniprot_sprot_5000_vs_uniprot_sprot_10000_blastp_db_blastp_results.txt.duprem.txt
+# rm -r temp_blastdb
 
 cd ../benchmark/blastp/
 
+# k=uniprot_sprot_5000_vs_uniprot_sprot_10000_blastp_db_blastp_results.txt.duprem.txt
 # count correct prediction
 for k in *_db_blastp_results.txt.duprem.txt; do
 echo $k;

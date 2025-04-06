@@ -1,7 +1,7 @@
 #!bin/bash
 
 # Analysis 
-cd ./benchmark/AI-Embedding/
+# cd ./benchmark/AI-Embedding/
 
 for f in *.tsv; do 
     echo "Processing: $f";
