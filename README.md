@@ -63,3 +63,5 @@ Dependencies:
 ```
 bash benchmark.sh
 ```
+
+Code to run ProtBERT (Rostlab/prot_bert) and ESM2 (facebook/esm2) is available [here](https://github.com/Rajan-sust/GeneAnnotation) 
