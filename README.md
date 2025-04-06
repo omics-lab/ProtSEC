@@ -1,4 +1,4 @@
-### PA-SigPro-Pipeline
+## PA-SigPro-Pipeline
 A bioinformatics pipeline for annotating protein sequences
 
 ### Installation
@@ -23,7 +23,7 @@ pip install -r requirements.txt
 ```
 
 ### Usage
-###### Building the Database
+#### Building the Database
 
 To build the database from a FASTA file, run:
 ```
@@ -34,7 +34,7 @@ python3 db_build.py \
     --db mds_db.pkl
 ```
 
-###### Annotating Sequences:
+#### Annotating Sequences:
 
 ```
 python3 annotate.py --input_faa ./data/QUERY.fasta \
@@ -46,7 +46,7 @@ python3 annotate.py --input_faa ./data/QUERY.fasta \
 
 Output tsv contains score in the 3rd column which is correlation value between query and hit.
 
-###### Example data
+#### Example data
 Example data is provided in the `example_data` directory:
 
 
@@ -54,7 +54,7 @@ Example data is provided in the `example_data` directory:
 - `QUERY.fasta`: Example query FASTA file.
 
 
-###### Benchmark
+#### Benchmark
 
 Dependencies:
 - blast
