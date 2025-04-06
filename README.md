@@ -46,7 +46,7 @@ python3 annotate.py --input_faa ./data/QUERY.fasta \
 
 Output tsv contains score in the 3rd column which is correlation value between query and hit.
 
-#### Example data
+### Example data
 Example data is provided in the `example_data` directory:
 
 
@@ -54,10 +54,12 @@ Example data is provided in the `example_data` directory:
 - `QUERY.fasta`: Example query FASTA file.
 
 
-#### Benchmark
+### Benchmark
 
 Dependencies:
 - blast
 - SigProt
 
-`bash benchmark.sh`
+```
+bash benchmark.sh
+```
