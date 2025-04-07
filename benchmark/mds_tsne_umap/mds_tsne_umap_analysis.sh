@@ -39,4 +39,4 @@ done
 for k in *tophit; do
 echo $k;
 grep -oi 'GN=[^ ]*' $k | paste - - | awk '{if (tolower($1) == tolower($2)) print $0}' | wc -l; 
-done | paste - - | awk '{print $1 "\t" $2 "\t" 100*($2/5000)}' | sort -n -k3 >acc_percent_sigprot_methods.txt
+done | paste - - | awk '{print $1 "\t" $2 "\t" 100*($2/5000)}' >acc_percent_sigprot_methods.txt

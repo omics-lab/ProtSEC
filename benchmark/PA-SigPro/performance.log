@@ -1,0 +1,129 @@
+data/uniprot_sprot_10000.fasta
+Using dimensionality reduction method: MDS
+Using 24 worker threads
+Found 10000 sequences to encode
+Processed 100/10000 sequences
+Processed 200/10000 sequences
+Processed 300/10000 sequences
+Processed 400/10000 sequences
+Processed 500/10000 sequences
+Processed 600/10000 sequences
+Processed 700/10000 sequences
+Processed 800/10000 sequences
+Processed 900/10000 sequences
+Processed 1000/10000 sequences
+Processed 1100/10000 sequences
+Processed 1200/10000 sequences
+Processed 1300/10000 sequences
+Processed 1400/10000 sequences
+Processed 1500/10000 sequences
+Processed 1600/10000 sequences
+Processed 1700/10000 sequences
+Processed 1800/10000 sequences
+Processed 1900/10000 sequences
+Processed 2000/10000 sequences
+Processed 2100/10000 sequences
+Processed 2200/10000 sequences
+Processed 2300/10000 sequences
+Processed 2400/10000 sequences
+Processed 2500/10000 sequences
+Processed 2600/10000 sequences
+Processed 2700/10000 sequences
+Processed 2800/10000 sequences
+Processed 2900/10000 sequences
+Processed 3000/10000 sequences
+Processed 3100/10000 sequences
+Processed 3200/10000 sequences
+Processed 3300/10000 sequences
+Processed 3400/10000 sequences
+Processed 3500/10000 sequences
+Processed 3600/10000 sequences
+Processed 3700/10000 sequences
+Processed 3800/10000 sequences
+Processed 3900/10000 sequences
+Processed 4000/10000 sequences
+Processed 4100/10000 sequences
+Processed 4200/10000 sequences
+Processed 4300/10000 sequences
+Processed 4400/10000 sequences
+Processed 4500/10000 sequences
+Processed 4600/10000 sequences
+Processed 4700/10000 sequences
+Processed 4800/10000 sequences
+Processed 4900/10000 sequences
+Processed 5000/10000 sequences
+Processed 5100/10000 sequences
+Processed 5200/10000 sequences
+Processed 5300/10000 sequences
+Processed 5400/10000 sequences
+Processed 5500/10000 sequences
+Processed 5600/10000 sequences
+Processed 5700/10000 sequences
+Processed 5800/10000 sequences
+Processed 5900/10000 sequences
+Processed 6000/10000 sequences
+Processed 6100/10000 sequences
+Processed 6200/10000 sequences
+Processed 6300/10000 sequences
+Processed 6400/10000 sequences
+Processed 6500/10000 sequences
+Processed 6600/10000 sequences
+Processed 6700/10000 sequences
+Processed 6800/10000 sequences
+Processed 6900/10000 sequences
+Processed 7000/10000 sequences
+Processed 7100/10000 sequences
+Processed 7200/10000 sequences
+Processed 7300/10000 sequences
+Processed 7400/10000 sequences
+Processed 7500/10000 sequences
+Processed 7600/10000 sequences
+Processed 7700/10000 sequences
+Processed 7800/10000 sequences
+Processed 7900/10000 sequences
+Processed 8000/10000 sequences
+Processed 8100/10000 sequences
+Processed 8200/10000 sequences
+Processed 8300/10000 sequences
+Processed 8400/10000 sequences
+Processed 8500/10000 sequences
+Processed 8600/10000 sequences
+Processed 8700/10000 sequences
+Processed 8800/10000 sequences
+Processed 8900/10000 sequences
+Processed 9000/10000 sequences
+Processed 9100/10000 sequences
+Processed 9200/10000 sequences
+Processed 9300/10000 sequences
+Processed 9400/10000 sequences
+Processed 9500/10000 sequences
+Processed 9600/10000 sequences
+Processed 9700/10000 sequences
+Processed 9800/10000 sequences
+Processed 9900/10000 sequences
+Processed 10000/10000 sequences
+Successfully encoded 10000 sequences
+Database saved to: DB/uniprot_sprot_10000.fasta_db.pkl
+	Command being timed: "benchmark/PA-SigPro/performance.sh"
+	User time (seconds): 4.59
+	System time (seconds): 0.74
+	Percent of CPU this job got: 129%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.11
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 763240
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 354
+	Minor (reclaiming a frame) page faults: 183832
+	Voluntary context switches: 70898
+	Involuntary context switches: 1259
+	Swaps: 0
+	File system inputs: 64352
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
