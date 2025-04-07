@@ -65,3 +65,13 @@ bash benchmark.sh
 ```
 
 Code to run ProtBERT (Rostlab/prot_bert) and ESM2 (facebook/esm2) is available [here](https://github.com/Rajan-sust/GeneAnnotation) 
+
+### Contact
+Rashedul Islam, PhD (rashedul.gen@gmail.com)
+
+### Citation
+Raju RS and Rashedul I. SigProt: Ultra-fast protein sequence embedding method using evolutionary conservation
+, (2025).
+
+### License
+This project is licensed under the MIT license.
