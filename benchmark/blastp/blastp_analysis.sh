@@ -1,6 +1,6 @@
 #!bin/bash
 
-cd data
+# cd data
 
 mkdir -p temp_blastdb
 

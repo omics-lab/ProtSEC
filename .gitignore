@@ -1,5 +1,5 @@
 data/temp/
-data/temp_blastdb/
+temp_blastdb/
 DB/
 venv/
 __pycache__
