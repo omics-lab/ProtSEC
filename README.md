@@ -22,24 +22,49 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+
+
+
+###### Distance functions:
+
+- Subtraction from Max Similarity (SMS)
+```
+D[i][j] = max(S) - S[i][j]
+```
+
+- Average of Self Minus Pairwise (ASMP)
+```
+D[i][j] = (S[i][i] + S[j][j]) / 2 - S[i][j]
+```
+
+- Shift and Normalize (SNN)
+```
+S' = -min(S) + S
+D[i][j] = 1 - (S'[i][j] / max(S'))
+```
+
 ### Usage
 #### Building the Database
 
 To build the database from a FASTA file, run:
 ```
-# Available methods: `MDS`, `t-SNE`, `UMAP`
+# Available dimensionality reduction methods: `MDS`, `t-SNE`, `UMAP`
+# Dist functions: `SMS`, `ASMP`, `SNN`
+
 python3 db_build.py \
     --fasta_path ./data/DB.fasta \
     --dim_reduct MDS \
-    --db mds_db.pkl
+    --dist_func SMS \
+    --db mds_sms_db.pkl
 ```
 
 #### Annotating Sequences:
 
 ```
 python3 annotate.py --input_faa ./data/QUERY.fasta \
-    --db ./DB/mds_db.pkl \
+    --db ./DB/mds_sms_db.pkl \
     --dim_reduct MDS \
+    --dist_func SMS \
     --top_hit 1 \
     --out ./data/result.tsv
 ```

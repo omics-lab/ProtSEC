@@ -9,15 +9,16 @@ def normalize(x: np.ndarray) -> np.ndarray:
 
 class ProteinEmbedder():
 
-    def __init__(self, method):
+    def __init__(self, dim_reduct='MDS', dist_func='SMS'):
         """
         Initialize the ProteinEmbedder with the specified method.
 
         Args:
             method: Method for embedding ('t-SNE', 'MDS', 'UMAP')
         """
-        self.aa_to_complex = aa_to_complex[method]
-        self.aa_to_complex['X'] = sum(num for num in aa_to_complex[method].values()) / len(aa_to_complex[method])
+        self.aa_to_complex = aa_to_complex[dim_reduct][dist_func]
+        self.aa_to_complex['X'] = sum(num for num in self.aa_to_complex.values()) / len(self.aa_to_complex)
+        # print(self.aa_to_complex)
         
 
     def encode(self, sequence):
@@ -44,3 +45,10 @@ class ProteinEmbedder():
         
         fft_result = fft(complex_seq, n=2048)
         return fft_result
+
+
+
+if __name__ == "__main__":
+    # Example usage
+    embedder = ProteinEmbedder()
+    
