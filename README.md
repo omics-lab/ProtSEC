@@ -55,7 +55,8 @@ python3 db_build.py \
     --fasta_path ./data/DB.fasta \
     --dim_reduct MDS \
     --dist_func SMS \
-    --db mds_sms_db.pkl
+    --db_dir_path ./DB \
+    --db_filename mds_sms_db.pkl
 ```
 
 #### Annotating Sequences:

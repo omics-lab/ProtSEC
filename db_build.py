@@ -21,7 +21,8 @@ def parse_args() -> argparse.Namespace:
                         help='Algorithm for dimensionality reduction (default: t-SNE)')
     parser.add_argument('--dist_func', type=str, default='SMS', choices=['SMS', 'ASMP', 'SNN'], 
                         help='Distance function for computing distance matrix (default: SMS)')
-    parser.add_argument('--db', type=str, default='protein_data.pkl', help='Filename of the database')
+    parser.add_argument('--db_dir_path', type=str, default='DB', help='Directory to save the database')
+    parser.add_argument('--db_filename', type=str, default='protein_data.pkl', help='Filename of the database')
     args = parser.parse_args()
 
     # Validate arguments
@@ -91,14 +92,19 @@ def main():
     
     print(f"Successfully encoded {len(list_of_vectors)} sequences")
     
-    db_path = Path('DB')  # Replace 'DB' with your directory path
+    db_path = Path(args.db_dir_path)  # Replace 'DB' with your directory path
     if not db_path.exists():
         db_path.mkdir(parents=True, exist_ok=True)
     
-    with open(f'DB/{args.db}', 'wb') as f:
+    # Save the list of vectors to a file
+    db_filename = args.db_filename
+    db_path = db_path / db_filename
+    print(f"Saving database to: {db_path}")
+    with open(db_path, 'wb') as f:
         pickle.dump(list_of_vectors, f)
-    # print(list_of_vectors)
-    print(f"Database saved to: DB/{args.db}")
+    
+    print(f"Database saved successfully to {db_path}")
+    
 
 if __name__ == '__main__':
     main()
