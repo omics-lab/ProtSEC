@@ -1,4 +1,5 @@
-uniprot_sprot_5k_against_10k_prot_bert.tsv.tophit	1770	35.4
-uniprot_sprot_5k_against_20k_prot_bert.tsv.tophit	2356	47.12
-uniprot_sprot_5k_against_10k_esm2.tsv.tophit	2612	52.24
-uniprot_sprot_5k_against_20k_esm2.tsv.tophit	2952	59.04
+uniprot_sprot_10000_esm2_results.tsv.tophit	2612	52.24
+uniprot_sprot_20000_esm2_results.tsv.tophit	2952	59.04
+uniprot_sprot_40000_esm2_results.tsv.tophit	3217	64.34
+uniprot_sprot_80000_esm2_results.tsv.tophit	3629	72.58
+uniprot_sprot_5000_esm2_results.tsv.tophit	5000	100
