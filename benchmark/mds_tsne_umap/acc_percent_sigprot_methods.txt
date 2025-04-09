@@ -1,8 +1,16 @@
+ASMP_uniprot_sprot_10000.fasta_SigProt_result.tsv.tophit	2626	52.52
+ASMP_uniprot_sprot_20000.fasta_SigProt_result.tsv.tophit	2975	59.5
+ASMP_uniprot_sprot_40000.fasta_SigProt_result.tsv.tophit	1450	29
 MDS_uniprot_sprot_10000.fasta_SigProt_result.tsv.tophit	2629	52.58
 MDS_uniprot_sprot_20000.fasta_SigProt_result.tsv.tophit	2983	59.66
 MDS_uniprot_sprot_40000.fasta_SigProt_result.tsv.tophit	3277	65.54
 MDS_uniprot_sprot_5000.fasta_SigProt_result.tsv.tophit	5000	100
 MDS_uniprot_sprot_80000.fasta_SigProt_result.tsv.tophit	3664	73.28
+SMS_uniprot_sprot_10000.fasta_SigProt_result.tsv.tophit	2644	52.88
+SMS_uniprot_sprot_20000.fasta_SigProt_result.tsv.tophit	2965	59.3
+SMS_uniprot_sprot_40000.fasta_SigProt_result.tsv.tophit	3256	65.12
+SMS_uniprot_sprot_5000.fasta_SigProt_result.tsv.tophit	5000	100
+SMS_uniprot_sprot_80000.fasta_SigProt_result.tsv.tophit	3653	73.06
 t-SNE_uniprot_sprot_10000.fasta_SigProt_result.tsv.tophit	2429	48.58
 t-SNE_uniprot_sprot_20000.fasta_SigProt_result.tsv.tophit	2804	56.08
 t-SNE_uniprot_sprot_40000.fasta_SigProt_result.tsv.tophit	3146	62.92
