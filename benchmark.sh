@@ -9,7 +9,11 @@
 ## 2. PA-SigPro parameter benchmarking
 # clone the repo from here (https://github.com/Rajan-sust/PA-SigPro-Pipeline) and install dependencies. 
 # benchmark sigprot with all parameters (mds_tsne_umap vs SMS_ASMP_SNN) for 5 datasets
-bash /home/rashedul/project/PA-SigPro-Pipeline/benchmark/dimreduct_distfunc/dimreduct_distfunc_analysis.sh 
+# bash /home/rashedul/project/PA-SigPro-Pipeline/benchmark/dimreduct_distfunc/dimreduct_distfunc_analysis.sh 
+
+# plot dimreduct_distfunc
+# ERROR for packages
+# Rscript benchmark/dimreduct_distfunc/dimreduct_distfunc_plot.R
 
 ## 3. AI-Embedding (prot_bert prot_t5 esm2)
 # Clone the repo from here (https://github.com/Rajan-sust/GeneAnnotation) and install dependencies. 
