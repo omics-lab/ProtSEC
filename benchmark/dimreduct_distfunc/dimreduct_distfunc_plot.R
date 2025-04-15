@@ -30,7 +30,7 @@ p <- df %>%
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(
-    x = "Number of sequences",
+    x = "Database",
     y = "Accuracy (%)",
     fill = "Group")
 
@@ -39,3 +39,10 @@ print(p)
 
 # Save plot as PDF
 ggsave("../../plots/dimreduct_distfunc.pdf", plot = p, width = 8, height = 5)
+ggsave("../../plots/dimreduct_distfunc.png", plot = p, width = 8, height = 5, dpi = 300)
+
+df %>%
+  group_by(type, group) %>%
+  summarise(avg_value = mean(value), .groups = "drop") %>%
+  arrange(desc(avg_value))
+
