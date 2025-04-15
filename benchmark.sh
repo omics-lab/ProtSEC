@@ -20,8 +20,9 @@
 # bash /mnt/c/GeneAnnotation/benchmark/AI-Embedding_analysis.sh 
 
 ## 4. Computing performance benchmark 
-# sigprot with 10k embedding performance
-# /usr/bin/time -v benchmark/PA-SigPro/performance.sh &> benchmark/PA-SigPro/performance.log 
+# sigprot with 5k embedding performance
+# /usr/bin/time -v benchmark/PA-SigPro/performance_evoprot.sh &> benchmark/PA-SigPro/performance_evoprot.log 
 
-# PLM 10k embedding performance
-# /usr/bin/time -v benchmark/AI-Embedding/performance.sh &> benchmark/AI-Embedding/performance.log 
+# PLM 5k embedding performance
+# run Docker and install python dependencies 
+/usr/bin/time -v benchmark/AI-Embedding/performance_esm2_protbert_prott5.sh  

@@ -2,5 +2,6 @@ data/temp/
 temp_blastdb/
 DB/
 venv/
+.Rhistory
 __pycache__
 .DS_Store

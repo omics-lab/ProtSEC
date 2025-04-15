@@ -1,10 +1,11 @@
 # build db pkl 
-for f in data/uniprot_sprot_10000.fasta; do
+for f in data/uniprot_sprot_5000.fasta; do
     echo "$f"
     filename=$(basename "$f")  
     python3 db_build.py \
         --fasta_path "$f" \
-        --db "${filename}_db.pkl"
+        --db_dir_path ./DB \
+        --db_filename "${filename}_db.pkl"
 done 
 
 # Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.06
