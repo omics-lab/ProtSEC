@@ -1,11 +1,10 @@
-
 library(tidyverse)
 
 # Check current working directory
 getwd()
 
 # Read file and select relevant columns
-df <- read.table("acc_percent_sigprot_methods.txt")[, c(1, 3)]
+df <- read.table("../benchmark/dimreduct_distfunc/acc_percent_sigprot_methods.txt")[, c(1, 3)]
 colnames(df) <- c("filename", "value")
 
 # Extract 'parameter' and split into 'type' and 'group'
@@ -38,8 +37,8 @@ p <- df %>%
 print(p)
 
 # Save plot as PDF
-ggsave("../../plots/dimreduct_distfunc.pdf", plot = p, width = 8, height = 5)
-ggsave("../../plots/dimreduct_distfunc.png", plot = p, width = 8, height = 5, dpi = 300)
+ggsave("dimreduct_distfunc.pdf", plot = p, width = 8, height = 5)
+ggsave("dimreduct_distfunc.png", plot = p, width = 8, height = 5, dpi = 300)
 
 df %>%
   group_by(type, group) %>%

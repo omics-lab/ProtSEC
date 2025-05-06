@@ -12,17 +12,17 @@
 # bash /home/rashedul/project/PA-SigPro-Pipeline/benchmark/dimreduct_distfunc/dimreduct_distfunc_analysis.sh 
 
 # plot dimreduct_distfunc
-# ERROR for packages
+# ERROR for packages if running from terminal
 # Rscript benchmark/dimreduct_distfunc/dimreduct_distfunc_plot.R
 
 ## 3. AI-Embedding (prot_bert prot_t5 esm2)
 # Clone the repo from here (https://github.com/Rajan-sust/GeneAnnotation) and install dependencies. 
 # bash /mnt/c/GeneAnnotation/benchmark/AI-Embedding_analysis.sh 
 
-## 4. Computing performance benchmark 
+## 4. Computing performance benchmark [done]
 # sigprot with 5k embedding performance
 # /usr/bin/time -v benchmark/PA-SigPro/performance_evoprot.sh &> benchmark/PA-SigPro/performance_evoprot.log 
 
-# PLM 5k embedding performance
-# run Docker and install python dependencies 
-/usr/bin/time -v benchmark/AI-Embedding/performance_esm2_protbert_prott5.sh  
+# PLM 5k embedding performance 
+# run Docker and install python dependencies within GeneAnnotation 
+bash benchmark/AI-Embedding/performance_esm2_protbert_prott5.sh  
