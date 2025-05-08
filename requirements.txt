@@ -3,3 +3,4 @@ numpy==2.2.4
 scikit-learn==1.6.1
 scipy==1.15.2
 matplotlib==3.10.1
+xgboost== 3.0.0
