@@ -1,4 +1,8 @@
 library(tidyverse)
+# library(RColorBrewer)
+library(ggsci)
+
+
 
 # Check current working directory
 getwd()
@@ -11,15 +15,20 @@ hydrophobic = c("A", "V", "I", "L", "M", "F", "Y", "W")
 df <- data.frame(AA, Real, Imaginary)
 df$HydroGroup <- ifelse(df$AA %in% hydrophobic, "Hydrophobic", "non-Hydrophobic")
 
+df$HydroGroup = factor(df$HydroGroup, levels = c("non-Hydrophobic", "Hydrophobic"))
 
 # plot 
 p = df %>%
     ggplot(aes(x = Real, y = Imaginary, color = HydroGroup)) +
     geom_point(size = 3) +
     geom_text(aes(label = AA), vjust = -1, size = 3) +
+    scale_color_jama() +
     theme_bw() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
+    theme(
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+  
+    )
 p
 
 # Save plot as PDF
