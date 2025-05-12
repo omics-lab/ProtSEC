@@ -6,7 +6,9 @@ uniprot_sprot_40000_prot_bert_results.tsv.tophit	2921	58.42
 uniprot_sprot_20000_esm2_results.tsv.tophit	2952	59.04
 uniprot_sprot_20000_prot_t5_results.tsv.tophit	3016	60.32
 uniprot_sprot_40000_esm2_results.tsv.tophit	3217	64.34
+uniprot_sprot_40000_prot_t5_results.tsv.tophit	3293	65.86
 uniprot_sprot_80000_prot_bert_results.tsv.tophit	3457	69.14
 uniprot_sprot_80000_esm2_results.tsv.tophit	3629	72.58
 uniprot_sprot_5000_esm2_results.tsv.tophit	5000	100
 uniprot_sprot_5000_prot_bert_results.tsv.tophit	5000	100
+uniprot_sprot_5000_prot_t5_results.tsv.tophit	5000	100
