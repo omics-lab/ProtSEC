@@ -7,6 +7,7 @@ from sklearn.preprocessing import StandardScaler
 import seaborn as sns
 import sys
 from sklearn.manifold import TSNE
+import umap
 
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -79,7 +80,18 @@ X = np.array([embedding(seq) for seq in all_sequences])
 # pca = PCA(n_components=2, random_state=42)
 # X_pca = pca.fit_transform(X)
 
-X_tsne = TSNE(n_components=2, learning_rate='auto', init='random').fit_transform(X)
+# X_tsne = TSNE(n_components=2, learning_rate='auto', init='random').fit_transform(X)
+
+# Apply UMAP to reduce dimensionality to 2
+# print("Applying UMAP...")
+reducer = umap.UMAP(
+    n_neighbors=100,
+    min_dist=0.7,
+    n_components=2
+)
+
+X_umap = reducer.fit_transform(X)
+
 
 # Create a 2D scatter plot
 plt.figure(figsize=(12, 8))
@@ -97,7 +109,7 @@ for protein in protein_dirs:
     # print(idx)
 
     if idx:
-        plt.scatter(X_tsne[idx, 0], X_tsne[idx, 1], label=protein, alpha=0.7, s=5)
+        plt.scatter(X_umap[idx, 0], X_umap[idx, 1], label=protein, alpha=0.7, s=5)
 
 plt.title('Scatter Plot of Protein Sequences', fontsize=16)
 plt.xlabel(f'Component 1', fontsize=12)
@@ -105,6 +117,6 @@ plt.ylabel(f'Component 2', fontsize=12)
 plt.legend(fontsize=10)
 plt.tight_layout()
 
-plt.savefig('protein_clusters_pca.png', dpi=300, bbox_inches='tight')
+plt.savefig('protein_clusters_umap.png', dpi=300, bbox_inches='tight')
 plt.show()
 
