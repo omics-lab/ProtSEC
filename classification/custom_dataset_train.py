@@ -181,12 +181,6 @@ def plot_confusion_matrix(cm, classes, title, normalize=False, cmap=plt.cm.Blues
 plot_confusion_matrix(
     xgb_confusion, 
     classes=protein_dirs,
-    title='XGBoost Confusion Matrix'
+    title='Confusion Matrix (ProSEC)'
 )
 
-# Plot MLP confusion matrix
-plot_confusion_matrix(
-    mlp_confusion, 
-    classes=protein_dirs,
-    title='MLP Confusion Matrix'
-)

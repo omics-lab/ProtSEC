@@ -43,6 +43,92 @@ def load_embeddings(directory, file_name):
     
     return embeddings
 
+# Function to plot confusion matrix
+def plot_confusion_matrix(cm, class_names, title, normalize=False, figsize=(10, 8), save_path=None):
+    """
+    Plot confusion matrix with customizable options
+    
+    Args:
+        cm: Confusion matrix array
+        class_names: List of class names
+        title: Title for the plot
+        normalize: Whether to normalize the confusion matrix
+        figsize: Figure size tuple
+        save_path: Path to save the figure (optional)
+    """
+    plt.figure(figsize=figsize)
+    
+    if normalize:
+        cm_normalized = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        cm_to_plot = cm_normalized
+        fmt = '.2f'
+        cmap = 'Blues'
+    else:
+        cm_to_plot = cm
+        fmt = 'd'
+        cmap = 'Blues'
+    
+    # Create heatmap
+    sns.heatmap(cm_to_plot, 
+                annot=True, 
+                fmt=fmt, 
+                cmap=cmap,
+                xticklabels=class_names,
+                yticklabels=class_names,
+                cbar_kws={'label': 'Normalized Values' if normalize else 'Count'})
+    
+    plt.title(title, fontsize=14, fontweight='bold')
+    plt.xlabel('Predicted Label', fontsize=12)
+    plt.ylabel('True Label', fontsize=12)
+    plt.xticks(rotation=45, ha='right')
+    plt.yticks(rotation=0)
+    plt.tight_layout()
+    
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"Confusion matrix saved to: {save_path}")
+    
+    plt.show()
+
+# Function to plot multiple confusion matrices side by side
+def plot_confusion_matrices_comparison(cm, class_names, model_name, figsize=(15, 6)):
+    """
+    Plot both regular and normalized confusion matrices side by side
+    """
+    fig, axes = plt.subplots(1, 2, figsize=figsize)
+    
+    # Regular confusion matrix
+    sns.heatmap(cm, 
+                annot=True, 
+                fmt='d', 
+                cmap='Blues',
+                xticklabels=class_names,
+                yticklabels=class_names,
+                ax=axes[0],
+                cbar_kws={'label': 'Count'})
+    axes[0].set_title(f'{model_name} - Raw Counts', fontsize=12, fontweight='bold')
+    axes[0].set_xlabel('Predicted Label')
+    axes[0].set_ylabel('True Label')
+    axes[0].tick_params(axis='x', rotation=45)
+    
+    # Normalized confusion matrix
+    cm_normalized = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+    sns.heatmap(cm_normalized, 
+                annot=True, 
+                fmt='.2f', 
+                cmap='Blues',
+                xticklabels=class_names,
+                yticklabels=class_names,
+                ax=axes[1],
+                cbar_kws={'label': 'Normalized Values'})
+    axes[1].set_title(f'{model_name} - Normalized', fontsize=12, fontweight='bold')
+    axes[1].set_xlabel('Predicted Label')
+    axes[1].set_ylabel('True Label')
+    axes[1].tick_params(axis='x', rotation=45)
+    
+    plt.tight_layout()
+    plt.show()
+
 # Collect training embeddings and their corresponding protein labels
 X_train_list = []
 y_train_list = []
@@ -123,3 +209,13 @@ print("\nXGBoost Confusion Matrix:")
 print(xgb_confusion)
 print("\nXGBoost Classification Report:")
 print(xgb_report)
+
+# Plot confusion matrices
+print("\nGenerating confusion matrix visualizations...")
+
+# Plot individual confusion matrices
+plot_confusion_matrix(xgb_confusion, class_names, 
+                     'Confusion Matrix (prot_bert)', 
+                     normalize=False, 
+                     save_path='xgboost_confusion_matrix_prot_bert.png')
+
