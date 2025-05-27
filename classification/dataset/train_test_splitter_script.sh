@@ -7,7 +7,7 @@ rm -f test_data.fasta train_data.fasta
 for file in U*.fasta; do
     echo "Processing $file..."
     
-    # Sample 5% for test set &  95% for train set
+    # Sample 20% for test set &  80% for train set
     
     cat ${file} | python3 ../fasta_splitter.py
     # Append to the test file

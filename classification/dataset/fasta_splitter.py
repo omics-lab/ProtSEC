@@ -3,7 +3,7 @@ import random
 from Bio import SeqIO
 from io import StringIO
 
-def split_fasta(input_stream, test_percent=0.05):
+def split_fasta(input_stream, test_percent=0.2):
     """
     Split fasta file into test and training sets.
     
