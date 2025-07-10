@@ -120,7 +120,7 @@ class CNNLSTMClassifier(nn.Module):
         
         return output
 
-def train_model(model, train_loader, val_loader, num_epochs=50, learning_rate=0.001):
+def train_model(model, train_loader, val_loader, num_epochs=50, learning_rate=0.05):
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', patience=5, factor=0.5)
@@ -324,10 +324,10 @@ if __name__ == "__main__":
         print("Failed to load data from NPZ file.")
     
     # Initialize the protein embedder
-    embedder = ProteinEmbedder(dim_reduct='MDS', dist_func='SMS', n=1000)
+    embedder = ProteinEmbedder(dim_reduct='MDS', dist_func='SMS', n=768)
 
-    X_train_embedded = np.array([embedder.encode(cut_protein_sequence_center(seq, 1000)) for seq in X_train])
-    X_test_embedded = np.array([embedder.encode(cut_protein_sequence_center(seq, 1000)) for seq in X_test])
+    X_train_embedded = np.array([embedder.encode(cut_protein_sequence_center(seq, 768)) for seq in X_train])
+    X_test_embedded = np.array([embedder.encode(cut_protein_sequence_center(seq, 768)) for seq in X_test])
 
     # Convert to numpy arrays
     X_train_embedded = np.concatenate([X_train_embedded.real, X_train_embedded.imag], axis=1)
@@ -368,7 +368,7 @@ if __name__ == "__main__":
 
     # Train the model
     model, train_losses, val_losses, train_accs, val_accs = train_model(
-        model, train_loader, val_loader, num_epochs=150, learning_rate=0.01
+        model, train_loader, val_loader, num_epochs=50, learning_rate=0.01
     )
 
     # Evaluate on test set
