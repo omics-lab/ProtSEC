@@ -90,6 +90,16 @@ Dependencies:
 bash benchmark.sh
 ```
 
+
+### Phase correlation matrix generation
+
+`-n` : Dimension of the embedding 
+
+```
+python3 gen-ph-cor.py -n 512 -i phosphatase.fa -o score_matrix.csv
+```
+
+### PLM Embedding
 Code to run ProtBERT (Rostlab/prot_bert) and ESM2 (facebook/esm2) is available [here](https://github.com/Rajan-sust/GeneAnnotation) 
 
 ### Contact
