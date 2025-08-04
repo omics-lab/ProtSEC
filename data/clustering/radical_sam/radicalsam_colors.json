@@ -1,0 +1,19 @@
+{
+    " LipA-like"     : "red",
+    " BATS"          : "orange",
+    " Elp-like"      : "yellow",
+    
+    " MTTase"        : "greenyellow",
+    " B12-binding"   : "lime",
+    " MTaseA"        : "green",
+    " PLP-dependent" : "lightgreen",
+    
+    " TW-synth"      : "lightseagreen",
+    " AE"            : "violet",
+    " SPASM"         : "aqua",
+    
+    " HemN-like"     : "mediumpurple",
+    " QueE-like"     : "blue",
+    " Viperin"       : "purple"
+}
+
