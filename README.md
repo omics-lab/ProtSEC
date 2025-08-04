@@ -1,52 +1,39 @@
-## PA-SigPro-Pipeline
-A bioinformatics pipeline for annotating protein sequences
+## ProSEC embedding of protein seqences
+ProSEC is an ultrafast method for embedding protein sequences in complex space using the discrete Fourier transform. Unlike popular protein language models (PLMs), ProSEC requires no training on sequence data. It is 20,000× faster and uses 85× less memory compared to models like ESM2-35M, ESM2-3B, ProtBERT, and BERT-T5.
 
-### Installation
+### 1. Requirement
 
-Clone the repository and navigate to the project directory:
+ - Python >= 3.10
+ - Linux
+ - macOS >= 13.5
+
+### 2. Installation
+
+ - Clone the repository and navigate to the project directory
 
 ```sh
 git clone https://github.com/Rajan-sust/PA-SigPro-Pipeline
 cd PA-SigPro-Pipeline/
 ```
 
-Create a virtual environment and activate it:
+- Create a virtual environment and activate
 
 ```
 python3 -m venv venv
 source venv/bin/activate
 ```
-Upgrade `pip` and install the required dependencies:
+
+- Upgrade `pip` and install the required dependencies
+
 ```
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+### 3. Run ProSEC
 
+- Generate complex embedding using a FASTA file
 
-
-###### Distance functions:
-
-- Subtraction from Max Similarity (SMS)
-```
-D[i][j] = max(S) - S[i][j]
-```
-
-- Average of Self Minus Pairwise (ASMP)
-```
-D[i][j] = (S[i][i] + S[j][j]) / 2 - S[i][j]
-```
-
-- Shift and Normalize (SNN)
-```
-S' = -min(S) + S
-D[i][j] = 1 - (S'[i][j] / max(S'))
-```
-
-### Usage
-#### Building the Database
-
-To build the database from a FASTA file, run:
 ```
 # Available dimensionality reduction methods: `MDS`, `t-SNE`, `UMAP`
 # Dist functions: `SMS`, `ASMP`, `SNN`
@@ -59,7 +46,23 @@ python3 db_build.py \
     --db_filename mds_sms_db.pkl
 ```
 
-#### Annotating Sequences:
+- Generate phase correlation matrix using ProSEC
+
+`-n` : Dimension of the embedding. If you're working with a multi-FASTA file containing sequences of varying lengths, use the 75th percentile of sequence lengths. Otherwise, use the actual sequence length. Default is 512.
+
+```
+python3 gen-ph-cor.py -n 512 -i phosphatase.fa -o score_matrix.csv
+```
+
+### 4. Benchmark 
+
+- Benchmarking used in the manuscript
+
+```
+bash benchmark.sh
+```
+
+- Protein sequence similarity search
 
 ```
 python3 annotate.py --input_faa ./data/QUERY.fasta \
@@ -70,44 +73,17 @@ python3 annotate.py --input_faa ./data/QUERY.fasta \
     --out ./data/result.tsv
 ```
 
-Output tsv contains score in the 3rd column which is correlation value between query and hit.
+Output `result.tsv` contains score in the 3rd column which is correlation value between query and hit.
 
-### Example data
-Example data is provided in the `example_data` directory:
-
-
-- `DB.fasta`: Example database FASTA file.
-- `QUERY.fasta`: Example query FASTA file.
-
-
-### Benchmark
-
-Dependencies:
-- blast
-- SigProt
-
-```
-bash benchmark.sh
-```
-
-
-### Phase correlation matrix generation
-
-`-n` : Dimension of the embedding 
-
-```
-python3 gen-ph-cor.py -n 512 -i phosphatase.fa -o score_matrix.csv
-```
-
-### PLM Embedding
+- PLM Embedding
 Code to run ProtBERT (Rostlab/prot_bert) and ESM2 (facebook/esm2) is available [here](https://github.com/Rajan-sust/GeneAnnotation) 
 
-### Contact
+### 5. Contact
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
-### Citation
+### 6. Citation
 Raju RS and Rashedul I. SigProt: Ultra-fast protein sequence embedding method using evolutionary conservation
 , (2025).
 
-### License
+### 7. License
 This project is licensed under the MIT license.
