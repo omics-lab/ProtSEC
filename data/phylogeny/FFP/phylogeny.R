@@ -18,6 +18,12 @@ alignment_phangorn <- msaConvert(alignment, type = "phangorn::phyDat")
 dist_matrix_clustalw <- dist.ml(alignment_phangorn)
 tree_clustalw_upgma <- upgma(dist_matrix_clustalw)
 
+pdf("../plots/tree_clustalw_upgma.pdf", width = 8, height = 6)
+plot(tree_clustalw_upgma, main = "ClustalW + UPGMA", cex = 0.8)
+dev.off()
+# ---- Bootstrap Analysis ----
+# did not work, need to fix later
+
 # ---- ProSEQ + UPGMA ----
 generate_upgma_tree <- function(matrix_csv, method_name) {
   corr_mat <- as.matrix(read.csv(matrix_csv, row.names = 1))
@@ -34,23 +40,20 @@ generate_upgma_tree <- function(matrix_csv, method_name) {
 # dev.off()
 
 # ---- Plotting the trees ----
-pdf("../plots/clustalw_proseq_PLMs_UPGMA_Trees.pdf", width = 12, height = 6)
-par(mfrow = c(1, 2))
-plot(tree_clustalw_upgma, main = "ClustalW + UPGMA", cex = 0.8)
-plot(tree_proseq_upgma, main = "ProSEQ + UPGMA", cex = 0.8)
-dev.off()
-
 matrix_files <- list.files("./FFP", pattern = "_matrix.csv$", full.names = TRUE)
 method_names <- gsub("10-BetaSet.|\\.csv", "", basename(matrix_files))
 
 pdf("../plots/all_methods_BetaSet_UPGMA_Trees.pdf", width = 16, height = 8)
-par(mfrow = c(2, 3)) # Adjust rows/cols as needed
+par(mfrow = c(2, 3)) 
 
 for (i in seq_along(matrix_files)) {
   tree <- generate_upgma_tree(matrix_files[i], method_names[i])
   plot(tree, main = paste(method_names[i], "+ UPGMA"), cex = 0.8)
 }
 dev.off()
+
+
+
 
 
 
