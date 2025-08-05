@@ -48,6 +48,8 @@ python3 db_build.py \
 
 - Protein sequence similarity search
 
+Output `result.tsv` contains score in the 3rd column which is correlation value between query and hit.
+
 ```
 python3 annotate.py --input_faa ./data/QUERY.fasta \
     --db ./DB/mds_sms_db.pkl \
@@ -56,8 +58,6 @@ python3 annotate.py --input_faa ./data/QUERY.fasta \
     --top_hit 1 \
     --out ./data/result.tsv
 ```
-
-Output `result.tsv` contains score in the 3rd column which is correlation value between query and hit.
 
 - Generate phase correlation matrix using ProSEC
 
