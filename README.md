@@ -1,5 +1,5 @@
 ## ProSEC architecture for protein seqence embedding
-ProSEC (**Pro**tein **S**equence **E**mbedding in **C**omplex Space) is an ultrafast method for embedding protein sequences using the discrete Fourier transform. Unlike large protein language models (PLMs), ProSEC requires no training on sequence data. It is 20,000× faster and uses 85× less memory compared to the popular models like ESM2-35M, ESM2-3B, ProtBERT, and BERT-T5.
+ProSEC (**Pro**tein **S**equence **E**mbedding in **C**omplex Space) is an ultrafast method for embedding protein sequences using the discrete Fourier transform. Unlike large protein language models (PLMs), ProSEC requires no training on sequence data. It is 20,000× faster and uses 85× less memory compared to the popular models like ESM2-35M, ESM2-3B, ProtBERT, and BERT-T5. ProSEC is lightweight enough to run on personal or laptop computers, even for processing large protein sequence datasets. 
 
 <p align="center">
   <img src="./data/plots/figures_ProSEC/figure.1_v5.jpeg" width="700"/>
