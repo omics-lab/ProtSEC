@@ -19,7 +19,7 @@ def parse_args() -> argparse.Namespace:
                        help='Number of worker threads to use (default: number of CPU cores)')
     parser.add_argument('--dim_reduct', type=str, default='MDS', choices=['UMAP', 't-SNE', 'MDS'],
                         help='Algorithm for dimensionality reduction (default: t-SNE)')
-    parser.add_argument('--dist_func', type=str, default='SMS', choices=['SMS', 'ASMP', 'SNN'], 
+    parser.add_argument('--dist_func', type=str, default='ASMP', choices=['SMS', 'ASMP', 'SNN'], 
                         help='Distance function for computing distance matrix (default: SMS)')
     parser.add_argument('--db_dir_path', type=str, default='DB', help='Directory to save the database')
     parser.add_argument('--db_filename', type=str, default='protein_data.pkl', help='Filename of the database')

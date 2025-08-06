@@ -14,7 +14,7 @@ def parse_args():
     parser.add_argument('--input_faa', type=str, required=True, help='Path to input FAA file to annotate')
     parser.add_argument('--dim_reduct', type=str, default='MDS', choices=['UMAP', 't-SNE', 'MDS'],
                         help='Algorithm for dimensionality reduction (default: t-SNE)')
-    parser.add_argument('--dist_func', type=str, default='SMS', choices=['SMS', 'ASMP', 'SNN'], 
+    parser.add_argument('--dist_func', type=str, default='ASMP', choices=['SMS', 'ASMP', 'SNN'], 
                         help='Distance function for computing distance matrix (default: SMS)')
     parser.add_argument('--top_hit', type=int, default=1, help='Number of top hits to return')
     parser.add_argument('--db', type=str, required=True, help='path to the precomputed database')
