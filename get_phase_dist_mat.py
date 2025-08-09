@@ -7,7 +7,7 @@ import argparse
 import pandas as pd
 
 
-def calculate_score(F1, F2):
+def calculate_distance(F1, F2):
     # Compute the normalized cross-power spectrum
     cross_power_spectrum = F1 * np.conj(F2)
     cross_power_spectrum /= (np.abs(cross_power_spectrum))
@@ -15,16 +15,18 @@ def calculate_score(F1, F2):
     # Compute inverse FFT to obtain the correlation
     correlation = ifft(cross_power_spectrum)
 
-    # Find the peak value and index
+    # Find the peak value (correlation score)
     peak_value = np.max(np.abs(correlation))
-    # shift_index = np.argmax(np.abs(correlation))
     
-    return peak_value
+    # Convert correlation to distance (1 - correlation)
+    distance = 1 - peak_value
+    
+    return distance
 
 
 if __name__ == '__main__':
     
-    parser = argparse.ArgumentParser(description='Compute pairwise phase correlation scores for protein sequences.')
+    parser = argparse.ArgumentParser(description='Compute pairwise distances of protein sequences from phase correlation')
     parser.add_argument('--input', '-i', required=True, help='Input FASTA file')
     parser.add_argument('--output', '-o', required=True, help='Output CSV file path')
     parser.add_argument('--dim', '-n', type=int, default=1024, help='FFT dimension (default: 1024)')
@@ -47,15 +49,15 @@ if __name__ == '__main__':
     n = len(ids)
     print(f'Number of sequences: {n}')
 
-    scores = np.zeros((n, n))
+    distances = np.zeros((n, n))
 
     for i in range(n):
         for j in range(n):
-            score = calculate_score(features[i], features[j])
-            scores[i, j] = round(score, 5)
+            distance = calculate_distance(features[i], features[j])
+            distances[i, j] = round(distance, 5)
 
     # Step 4: Create DataFrame and save as CSV
-    df = pd.DataFrame(scores, index=ids, columns=ids)
+    df = pd.DataFrame(distances, index=ids, columns=ids)
     df.to_csv(output_csv, index_label='ID')
 
-# python3 gen-ph-cor.py -n 512 -i phosphatase.fa -o score_matrix.csv
+# python3 get_phase_dist_mat.py -n 512 -i phosphatase.fa -o score_matrix.csv

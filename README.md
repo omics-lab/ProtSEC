@@ -68,7 +68,7 @@ python3 annotate.py --input_faa ./data/QUERY.fasta \
 `-n` : Dimension of the embedding. If you're working with a multi-FASTA file containing sequences of varying lengths, use the 75th percentile of sequence lengths. Otherwise, use the actual sequence length. Default is 512.
 
 ```
-python3 gen-ph-cor.py -n 512 -i phosphatase.fa -o score_matrix.csv
+python3 get_phase_dist_mat.py -n 512 -i phosphatase.fa -o score_matrix.csv
 ```
 
 ### 4. Benchmark 
