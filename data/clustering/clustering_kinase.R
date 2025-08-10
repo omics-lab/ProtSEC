@@ -1,5 +1,6 @@
 library(umap)
 library(tidyverse)
+library(patchwork)
 
 # Check current working directory
 setwd("//wsl$/Ubuntu/home/rashedul/project/ProSEC/data/clustering")
@@ -57,7 +58,7 @@ combined_umap_labeled$method <- factor(combined_umap_labeled$method, levels = me
 p_combined <- ggplot(combined_umap_labeled, aes(x = V1, y = V2, color = label)) +
   geom_point(size = 1.5) +
   scale_color_brewer(palette = "Paired") +
-  labs(title = "UMAP by Method", x = "UMAP 1", y = "UMAP 2", color = "Label") +
+  labs(title = "Kinase", x = "UMAP 1", y = "UMAP 2", color = "Label") +
   facet_wrap(~method, ncol = 3) +
   theme(panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA, colour = "gray", size = 1),
@@ -99,23 +100,27 @@ for (i in seq_along(csv_files)) {
 print("Trustworthiness Summary:")
 print(trustworthiness_results)
 
-# Save results
-write.csv(trustworthiness_results, "../protein_kinase/trustworthiness_kinase_results.csv", row.names = FALSE)
-
 # Create trustworthiness comparison plot
 p_trust <- ggplot(trustworthiness_results, aes(x = reorder(method, trustworthiness), y = trustworthiness)) +
   geom_col(fill = "steelblue", alpha = 0.7) +
   geom_text(aes(label = round(trustworthiness, 3)), vjust = -0.5) +
-  theme_minimal() +
-  labs(title = "Trustworthiness Comparison Across Methods",
-       x = "Method", 
-       y = "Trustworthiness Score",
-       subtitle = "Higher scores indicate better preservation of local neighborhoods") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ylim(0, 1)
+  labs(x = "", 
+       y = "Trustworthiness Score") +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA, colour = "gray", size = 1),
+        strip.background = element_rect(fill="white"),
+        legend.position = "bottom",
+        axis.text = element_text(color = "black", angle = 45, vjust = 0.5, hjust=1)) +
+  ylim(0, 1.1)
 
 ggsave("../plots/trustworthiness_kinase_comparison.pdf", plot = p_trust, width = 10, height = 6)
 
+# Create the combined layout using patchwork
+combined_layout <- p_combined + 
+  inset_element(p_trust, 
+                left = 0.68, bottom = -0.11, right = 1, top = 0.49)
+
+ggsave("../plots/combined_kinase_umap_with_trust.pdf", plot = combined_layout, width = 15, height = 10)
 
 # trustworthiness function
 calculate_trustworthiness <- function(X, Y, k = 15) {
@@ -149,44 +154,3 @@ calculate_trustworthiness <- function(X, Y, k = 15) {
   t <- 1 - (2 / (n * k * (2 * n - 3 * k - 1))) * t_sum
   return(t)
 }
-
-
-## backup 
-# ---- UMAP for single method (ProtSEC) ----
-
-# single file 
-dist_mat <- as.matrix(read.csv("protein_kinase/kinase.proseq_dist_matrix.csv", row.names = 1))
-umap_result <- umap(dist_mat)
-umap_df <- as.data.frame(umap_result$layout)
-umap_df$accession <- rownames(corr_mat)
-
-labels_df <- read.csv("protein_kinase/kinase_labels.csv", stringsAsFactors = FALSE)
-umap_df_labeled <- merge(umap_df, labels_df, by = "accession")
-
-exclude_df <- read.table("protein_kinase/exclude.txt", header = FALSE, stringsAsFactors = FALSE)
-colnames(exclude_df) <- c("accession", "label")
-umap_df_labeled <- subset(umap_df_labeled, !(accession %in% exclude_df$accession)) %>% filter(label != "")
-
-p_kinase <- ggplot(umap_df_labeled, aes(x = V1, y = V2, color = label)) +
-  geom_point(size = 1.5) +
-  # geom_text(vjust = 1.5, hjust = 1.1, size = 2.5) +
-  scale_color_brewer(palette = "Paired") +
-  labs(title = "ProtSEC", x = "UMAP 1", y = "UMAP 2", color = "Label") +
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "gray", size = 1),
-        strip.background =element_rect(fill="white"),
-        legend.position = "bottom",
-        axis.text = element_text(color = "black", vjust = 0.5, hjust=1))
-ggsave("../plots/kinase_umap.pdf", plot = p_kinase, width = 7, height = 7)
-
-
-# trustworthiness between original distance and UMAP layout
-X <- as.matrix(dist_mat) 
-Y <- umap_result$layout 
-calculate_trustworthiness(X, Y, k = 15)
-
-
-calculate_trustworthiness(X, Y, k = 15)
-# 0.90 for phosphatase
-# 0.91 for kinase
-# 0.67 for sam

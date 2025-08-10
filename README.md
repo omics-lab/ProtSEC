@@ -68,7 +68,7 @@ python3 annotate.py --input_faa ./data/QUERY.fasta \
 `-n` : Dimension of the embedding. If you're working with a multi-FASTA file containing sequences of varying lengths, use the 75th percentile of sequence lengths. Otherwise, use the actual sequence length. Default is 512.
 
 ```
-python3 get_phase_dist_mat.py -n 512 -i phosphatase.fa -o score_matrix.csv
+python3 get_phase_dist_mat.py -n 1024 -i phosphatase.fa -o score_matrix.csv
 ```
 
 ### 4. Benchmark 
@@ -86,7 +86,7 @@ Code to run 'esm2_small', 'esm2_large', 'prot_bert', 'prot_t5' is available [her
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
 ### 6. Citation
-Raju RS and Rashedul I. SigProt: Ultra-fast protein sequence embedding method using evolutionary conservation, (2025).
+Raju RS and Rashedul I. ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Discrete Fourier Transform. (2025).
 
 ### 7. License
 This project is licensed under the MIT license.
