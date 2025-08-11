@@ -71,6 +71,12 @@ python3 annotate.py --input_faa ./data/QUERY.fasta \
 python3 get_phase_dist_mat.py -n 1024 -i phosphatase.fa -o score_matrix.csv
 ```
 
+- PLM Based Distance matrix
+
+```
+python3 get_plm_dist_mat.py -i data/phylogeny/FFP/17-BetaSet_edited.fasta -m esm2_small
+```
+
 ### 4. Benchmark 
 
 - Benchmarking used in the manuscript
