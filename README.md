@@ -96,4 +96,4 @@ Rashedul Islam, PhD (rashedul.gen@gmail.com)
 Raju RS and Rashedul I. ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Discrete Fourier Transform. (2025).
 
 ### 7. License
-This project is licensed under the MIT license.
+This project is under the MIT license.
