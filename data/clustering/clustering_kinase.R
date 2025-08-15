@@ -2,6 +2,7 @@ library(umap)
 library(tidyverse)
 library(patchwork)
 
+
 # Check current working directory
 setwd("//wsl$/Ubuntu/home/rashedul/project/ProSEC/data/clustering")
 getwd()
@@ -101,7 +102,10 @@ print("Trustworthiness Summary:")
 print(trustworthiness_results)
 
 # Create trustworthiness comparison plot
-p_trust <- ggplot(trustworthiness_results, aes(x = reorder(method, trustworthiness), y = trustworthiness)) +
+trustworthiness_results$method <- factor(trustworthiness_results$method, levels = method_order)
+
+# Create trustworthiness comparison plot with fixed method order
+p_trust <- ggplot(trustworthiness_results, aes(x = method, y = trustworthiness)) +
   geom_col(fill = "steelblue", alpha = 0.7) +
   geom_text(aes(label = round(trustworthiness, 3)), vjust = -0.5) +
   labs(x = "", 

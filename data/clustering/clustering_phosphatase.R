@@ -104,6 +104,8 @@ print("Trustworthiness Summary:")
 print(trustworthiness_results)
 
 # Create trustworthiness comparison plot
+trustworthiness_results$method <- factor(trustworthiness_results$method, levels = method_order)
+
 p_trust <- ggplot(trustworthiness_results, aes(x = reorder(method, trustworthiness), y = trustworthiness)) +
   geom_col(fill = "steelblue", alpha = 0.7) +
   geom_text(aes(label = round(trustworthiness, 3)), vjust = -0.5) +

@@ -4,3 +4,9 @@ __pycache__
 .DS_Store
 *Zone.Identifier
 *.Rhistory
+data/clustering/deeploc/deeploc.ProtSEC_matrix.csv
+data/clustering/deeploc/deeploc.esm2_small_matrix.csv
+venv/lib/python3.12/site-packages/nvidia/nccl/lib/libnccl.so.2
+venv/lib/python3.12/site-packages/xgboost/lib/libxgboost.so
+.git/objects/pack/pack-bc849c72fc67bf35989c6304ebad48bc6ef005d9.pack
+.git/objects/pack/pack-0cad82c10f2a9d5fa12f8a9284b271f2cd937c10.pack

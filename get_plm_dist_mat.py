@@ -322,12 +322,12 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Compute pairwise distances of protein sequences using PLM embeddings.')
     parser.add_argument('--input', '-i', required=True, help='Input FASTA file')
-    # parser.add_argument('--output', '-o', required=True, help='Output CSV file path')
+    parser.add_argument('--output', '-o', required=False, help='Output CSV file path (optional)')
     parser.add_argument('--model', '-m', default='esm2_small', choices=['prot_bert', 'esm2_small', 'esm2_large', 'prot_t5'], help='Model to use for embeddings')
     args = parser.parse_args()
 
     fasta_file = args.input
-    # output_file = args.output
+    output_file = args.output if args.output else None
     model = args.model
 
     embedder = get_embedder(model_name=model)
