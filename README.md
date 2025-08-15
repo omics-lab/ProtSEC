@@ -65,17 +65,10 @@ python3 annotate.py --input_faa ./data/QUERY.fasta \
 
 - Generate phase correlation matrix using ProtSEC
 
-`-n` : Dimension of the embedding. If you're working with a multi-FASTA file containing sequences of varying lengths, use the 75th percentile of sequence lengths. Otherwise, use the actual sequence length. Default is 512.
+`-n` : Dimension of the embedding. If you're working with a multi-FASTA file containing sequences of varying lengths, use the 75th percentile of sequence lengths. Otherwise, use the actual sequence length. Default is 1024.
 
 ```
 python3 get_phase_dist_mat.py -n 1024 -i phosphatase.fa -o score_matrix.csv
-```
-
-- PLM Based Distance matrix
-
-```
-!pip install biopython transformers torch sentencepiece
-python3 get_plm_dist_mat.py -i data/phylogeny/FFP/17-BetaSet_edited.fasta -m esm2_small
 ```
 
 ### 4. Benchmark 
@@ -88,6 +81,13 @@ bash ./benchmark/benchmark.sh
 
 - PLM Embedding
 Code to run 'esm2_small', 'esm2_large', 'prot_bert', 'prot_t5' is available [here](https://github.com/Rajan-sust/GeneAnnotation) 
+
+- Generate PLM Based Distance matrix
+
+```
+!pip install biopython transformers torch sentencepiece
+python3 get_plm_dist_mat.py -i data/phylogeny/FFP/17-BetaSet_edited.fasta -m esm2_small
+```
 
 ### 5. Contact
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
