@@ -1,5 +1,5 @@
 ## ProtSEC architecture for protein seqence embedding
-**ProtSEC** (**Prot**ein **S**equence **E**mbedding in **C**omplex Space) is an ultrafast method for embedding protein sequences using the discrete Fourier transform. Unlike large protein language models (PLMs), ProtSEC requires no training on sequence data. It is 20,000× faster and uses 85× less memory compared to the popular models like ESM2-35M, ESM2-3B, ProtBERT, and BERT-T5. ProtSEC is lightweight enough to run on personal or laptop computers, even for processing large protein sequence datasets. 
+**ProtSEC** (**Prot**ein **S**equence **E**mbedding in **C**omplex Space) is an ultrafast method for embedding protein sequences using the discrete Fourier transform. Unlike large protein language models (PLMs), ProtSEC requires no training on sequence data. It is 20,000× faster and uses 85× less memory compared to the popular models like esm2_3B, esm2_35M, prot_t5 and prot_bert. ProtSEC is lightweight enough to run on personal or laptop computers, even for processing large protein sequence datasets. 
 
 <p align="center">
   <img src="./data/plots/figures_ProtSEC/figure.1_v5_github.jpeg" width="800"/>
@@ -93,7 +93,7 @@ python3 get_plm_dist_mat.py -i data/phylogeny/FFP/17-BetaSet_edited.fasta -m esm
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
 ### 6. Citation
-Raju RS and Rashedul I. ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Discrete Fourier Transform. (2025).
+Raju RS and Rashedul I. ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Fsdy Fourier Transform. (2025).
 
 ### 7. License
 This project is under the MIT license.
