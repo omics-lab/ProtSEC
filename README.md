@@ -85,7 +85,7 @@ Code to run 'esm2_small', 'esm2_large', 'prot_bert', 'prot_t5' is available [her
 - Generate PLM Based Distance matrix
 
 ```
-!pip install biopython transformers torch sentencepiece
+pip install biopython transformers torch sentencepiece
 python3 get_plm_dist_mat.py -i data/phylogeny/FFP/17-BetaSet_edited.fasta -m esm2_small
 ```
 
