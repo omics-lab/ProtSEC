@@ -41,23 +41,44 @@ if __name__ == '__main__':
     ids = []
     features = []
 
-    for record in SeqIO.parse(dataset_path, 'fasta'):
+    print("Encoding sequences...")
+    for i, record in enumerate(SeqIO.parse(dataset_path, 'fasta'), 1):
         v = embedder.encode(str(record.seq))
         ids.append(str(record.id))
         features.append(v)
+        
+        # Show progress every 10 sequences or for the last sequence
+        if i % 10 == 0 or i == 1:
+            print(f"Encoded {i} sequences...", end='\r')
+    
+    print(f"\nCompleted encoding {len(ids)} sequences")
 
     n = len(ids)
     print(f'Number of sequences: {n}')
 
     distances = np.zeros((n, n))
 
+    print("Calculating pairwise distances...")
+    total_pairs = n * n
+    completed_pairs = 0
+
     for i in range(n):
         for j in range(n):
             distance = calculate_distance(features[i], features[j])
             distances[i, j] = round(distance, 5)
+            completed_pairs += 1
+            
+            # Show progress every 100 pairs or for significant milestones
+            if completed_pairs % 100 == 0 or completed_pairs == total_pairs:
+                progress = (completed_pairs / total_pairs) * 100
+                print(f"Progress: {completed_pairs}/{total_pairs} pairs ({progress:.1f}%)", end='\r')
+    
+    print(f"\nCompleted calculating all {total_pairs} pairwise distances")
 
     # Step 4: Create DataFrame and save as CSV
+    print("Saving results to CSV...")
     df = pd.DataFrame(distances, index=ids, columns=ids)
     df.to_csv(output_csv, index_label='ID')
+    print(f"Results saved to: {output_csv}")
 
 # python3 get_phase_dist_mat.py -n 512 -i phosphatase.fa -o score_matrix.csv
