@@ -5,10 +5,8 @@ cd /home/rashedul/project/ProSEC
 ## 1. blastp with 5 datasets 
 bash benchmark/blastp/blastp_analysis.sh
 
-## 2. PA-SigPro parameter benchmarking
-# clone the repo from here (https://github.com/Rajan-sust/PA-SigPro-Pipeline) and install dependencies. 
+## 2. ProtSEC parameter benchmarking
 # benchmark ProSEC with all parameters (mds_tsne_umap vs SMS_ASMP_SNN) for 5 datasets
-# a DB directory is required
 bash /home/rashedul/project/ProSEC/benchmark/dimreduct_distfunc/dimreduct_distfunc_analysis.sh 
 
 ## plot dimreduct_distfunc
