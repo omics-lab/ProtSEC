@@ -21,4 +21,4 @@ done
 
 echo "All files processed!"
 
-python3 get_phase_dist_mat.py -n 1024 -i ./data/EC/task1/fastas/train_swissprot.fasta -o ./data/EC/task1/fastas/train_swissprot_score_matrix.csv
+#python3 get_phase_dist_mat.py -n 1024 -i ./data/EC/task1/fastas/train_swissprot.fasta -o ./data/EC/task1/fastas/train_swissprot_score_matrix.csv
