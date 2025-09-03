@@ -46,6 +46,7 @@ python3 db_build.py \
     --fasta_path ./data/DB.fasta \
     --dim_reduct MDS \
     --dist_func SMS \
+    --dim 1024 \
     --db_dir_path ./DB \
     --db_filename mds_sms_db.pkl
 ```
@@ -59,6 +60,7 @@ python3 annotate.py --input_faa ./data/QUERY.fasta \
     --db ./DB/mds_sms_db.pkl \
     --dim_reduct MDS \
     --dist_func SMS \
+    --dim 1024 \
     --top_hit 1 \
     --out ./data/result.tsv
 ```

@@ -16,6 +16,7 @@ def parse_args():
                         help='Algorithm for dimensionality reduction (default: t-SNE)')
     parser.add_argument('--dist_func', type=str, default='ASMP', choices=['SMS', 'ASMP', 'SNN'], 
                         help='Distance function for computing distance matrix (default: SMS)')
+    parser.add_argument('--dim', type=int, required=True, help='Dimensionality of the embeddings')
     parser.add_argument('--top_hit', type=int, default=1, help='Number of top hits to return')
     parser.add_argument('--db', type=str, required=True, help='path to the precomputed database')
     parser.add_argument('--out', type=str, required=True, help='Path to output TSV file')
@@ -64,7 +65,7 @@ def main():
         list_of_vectors = pickle.load(f)
     
     # print(list_of_vectors)
-    encoder = ProteinEmbedder(args.dim_reduct, args.dist_func)
+    encoder = ProteinEmbedder(args.dim_reduct, args.dist_func, args.dim)
     print(f"Using dimensionality reduction method: {args.dim_reduct}")
     print(f"Using distance function: {args.dist_func}")
     
