@@ -1,24 +1,24 @@
-# ec 
+#!/bin/bash
+
+## sample prep
+cd /Users/rashedulislam/Documents/git_repos/ProtSEC/analysis/EC_CARE_task1/fastas/
+
+# remove duplicated entry
+seqkit rmdup backup/train_swissprot.fasta -o train_swissprot_unique.fasta
+
+# downsampled testing data
+seqkit sample -n 2000 train_swissprot_unique.fasta -o temp.fasta
+cat temp.fasta 30_protein_test.fasta 30-50_protein_test.fasta > sample_2000.fasta
+rm temp.fasta
+
+# whole data
+cat train_swissprot_unique.fasta 30_protein_test.fasta 30-50_protein_test.fasta > train_test_swissprot_unique.fasta
+
+## ProtSEC
 cd /Users/rashedulislam/Documents/git_repos/ProtSEC/
 
-# Loop through all FASTA files in the fastas directory
-for fasta_file in ./data/EC/task1/fastas/*.fasta; do
-    # Extract filename without path and extension
-    filename=$(basename "$fasta_file" .fasta)
-    
-    # Create output filename
-    output_file="./data/EC/task1/fastas/${filename}_score_matrix.csv"
-    
-    echo "Processing: $fasta_file"
-    echo "Output: $output_file"
-    
-    # Run get_phase_dist_mat.py
-    python3 get_phase_dist_mat.py -n 1024 -i "$fasta_file" -o "$output_file"
-    
-    echo "Completed: $filename"
-    echo "---"
-done
+# downsampled testing data
+python3 get_phase_dist_mat.py -n 1024 -i ./analysis/EC_CARE_task1/fastas/sample_2000.fasta -o ./analysis/EC_CARE_task1/fastas/sample_2000_ProtSEC_matrix.csv
 
-echo "All files processed!"
+# whole data
 
-#python3 get_phase_dist_mat.py -n 1024 -i ./data/EC/task1/fastas/train_swissprot.fasta -o ./data/EC/task1/fastas/train_swissprot_score_matrix.csv
