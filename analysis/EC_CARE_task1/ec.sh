@@ -16,9 +16,8 @@ cat train_swissprot_unique.fasta 30_protein_test.fasta 30-50_protein_test.fasta 
 
 ## ProtSEC
 cd /Users/rashedulislam/Documents/git_repos/ProtSEC/
-
-# downsampled testing data
 python3 get_phase_dist_mat.py -n 1024 -i ./analysis/EC_CARE_task1/fastas/sample_2000.fasta -o ./analysis/EC_CARE_task1/fastas/sample_2000_ProtSEC_matrix.csv
+python3 get_plm_dist_mat.py -i ./analysis/EC_CARE_task1/fastas/sample_2000.fasta -m esm2_small -o ./analysis/EC_CARE_task1/fastas/sample_2000_esm2small_matrix.csv
 
-# whole data
+
 

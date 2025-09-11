@@ -16,7 +16,7 @@
  - Clone the repository and navigate to the project directory
 
 ```sh
-git clone https://github.com/Rajan-sust/ProtSEC
+git clone https://github.com/omics-lab/ProtSEC/
 cd ProtSEC/
 ```
 
