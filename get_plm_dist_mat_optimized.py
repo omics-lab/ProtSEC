@@ -91,80 +91,50 @@ class ESM2Embedder(ProteinEmbedder):
         return self._vector_size
 
     def get_embedding(self, sequence: str, max_length: int = 1024) -> List[float]:
-        """Single sequence embedding - calls batch method with one sequence."""
-        return self.get_batch_embeddings([sequence], batch_size=1, max_length=max_length)[0]
+        """Handle long sequences by chunking and averaging embeddings."""
+        seq = re.sub(r'[^A-Z]', '', sequence.upper())
+        seq = re.sub(r'[UZOB]', 'X', seq)
+        chunks = [seq[i:i + max_length - 2] for i in range(0, len(seq), max_length - 2)]
+        chunk_embeddings = []
+        for chunk in chunks:
+            emb = self._embed_single(chunk, max_length)
+            chunk_embeddings.append(emb)
+        mean_embedding = np.mean(np.array(chunk_embeddings), axis=0)
+        normalized_embedding = normalize_l2(mean_embedding)
+        return self.validate_embedding(normalized_embedding.tolist())
+
+    def _embed_single(self, seq: str, max_length: int) -> np.ndarray:
+        inputs = self.tokenizer(
+            seq,
+            return_tensors="pt",
+            padding=True,
+            truncation=True,
+            max_length=max_length,
+            add_special_tokens=True
+        )
+        inputs = {key: val.to(self.device) for key, val in inputs.items()}
+        with torch.no_grad():
+            outputs = self.model(**inputs)
+        last_hidden_state = outputs.last_hidden_state
+        attention_mask = inputs['attention_mask']
+        valid_positions = attention_mask[0].bool()
+        sequence_embeddings = last_hidden_state[0][valid_positions]
+        mean_embedding = torch.mean(sequence_embeddings, dim=0)
+        return mean_embedding.cpu().numpy()
 
     def get_batch_embeddings(self, sequences: List[str], batch_size: int = 8, max_length: int = 1024) -> List[List[float]]:
-        """Process multiple sequences in batches for better efficiency."""
+        """Batch embedding with chunking for long sequences."""
         all_embeddings = []
-        
-        # Process sequences in batches
         for i in range(0, len(sequences), batch_size):
             batch_sequences = sequences[i:i + batch_size]
-            batch_embeddings = self._process_batch(batch_sequences, max_length)
+            batch_embeddings = []
+            for seq in batch_sequences:
+                emb = self.get_embedding(seq, max_length)
+                batch_embeddings.append(emb)
             all_embeddings.extend(batch_embeddings)
-            
-            # Clear GPU cache periodically
             if self.device.type in ['cuda', 'mps']:
                 torch.cuda.empty_cache() if self.device.type == 'cuda' else None
-        
         return all_embeddings
-
-    def _process_batch(self, sequences: List[str], max_length: int = 1024) -> List[List[float]]:
-        """Process a batch of sequences."""
-        try:
-            # Preprocess all sequences
-            processed_sequences = []
-            for seq in sequences:
-                seq = re.sub(r'[^A-Z]', '', seq.upper())
-                seq = re.sub(r'[UZOB]', 'X', seq)
-                # Truncate if too long
-                if len(seq) > max_length - 2:
-                    seq = seq[:max_length - 2]
-                processed_sequences.append(seq)
-
-            # Tokenize batch
-            inputs = self.tokenizer(
-                processed_sequences,
-                return_tensors="pt",
-                padding=True,
-                truncation=True,
-                max_length=max_length,
-                add_special_tokens=True
-            )
-
-            # Move to device
-            inputs = {key: val.to(self.device) for key, val in inputs.items()}
-
-            # Generate embeddings
-            with torch.no_grad():
-                outputs = self.model(**inputs)
-
-            # Get embeddings for each sequence in batch
-            last_hidden_state = outputs.last_hidden_state  # [batch_size, seq_len, hidden_size]
-            attention_mask = inputs['attention_mask']  # [batch_size, seq_len]
-
-            # Mean pooling with attention mask
-            embeddings = []
-            for i in range(last_hidden_state.size(0)):
-                # Get valid positions (non-padded)
-                valid_positions = attention_mask[i].bool()
-                sequence_embeddings = last_hidden_state[i][valid_positions]
-                
-                # Mean pooling
-                mean_embedding = torch.mean(sequence_embeddings, dim=0)
-                embedding_np = mean_embedding.cpu().numpy()
-                
-                # Normalize and validate
-                normalized_embedding = normalize_l2(embedding_np)
-                validated_embedding = self.validate_embedding(normalized_embedding.tolist())
-                embeddings.append(validated_embedding)
-
-            return embeddings
-
-        except Exception as e:
-            logger.error(f"Failed to process batch: {str(e)}")
-            raise EmbeddingError(f"Failed to process batch: {str(e)}")
 
 class ProtBertEmbedder(ProteinEmbedder):
     """Optimized ProtBERT embedder with batch processing."""
@@ -240,6 +210,91 @@ class ProtBertEmbedder(ProteinEmbedder):
         
         return all_embeddings
 
+class ProtT5Embedder(ProteinEmbedder):
+    """Protein embedder using the ProtT5 model."""
+
+    def __init__(self, model_name="Rostlab/prot_t5_xl_half_uniref50-enc"):
+        self.device = get_device()
+        logger.info(f"Initializing ProtT5Embedder using device: {self.device}")
+
+        try:
+            from transformers import T5EncoderModel, T5Tokenizer
+            self.tokenizer = T5Tokenizer.from_pretrained(model_name, do_lower_case=False)
+            self.model = T5EncoderModel.from_pretrained(model_name)
+            self.model = self.model.to(self.device)
+            self.model.eval()
+            self._vector_size = self.model.config.d_model
+        except Exception as e:
+            logger.error(f"Failed to initialize ProtT5 model: {str(e)}")
+            raise EmbeddingError(f"Failed to initialize ProtT5 model: {str(e)}")
+
+    @property
+    def vector_size(self) -> int:
+        return self._vector_size
+
+    def get_embedding(self, sequence: str, max_length: int = 1024) -> List[float]:
+        seq = re.sub(r'[^A-Z]', '', sequence.upper())
+        seq = re.sub(r'[UZOB]', 'X', seq)
+        if len(seq) > max_length - 2:
+            seq = seq[:max_length - 2]
+        seq = ' '.join(list(seq))
+        inputs = self.tokenizer(
+            seq,
+            return_tensors="pt",
+            padding=True,
+            truncation=True,
+            max_length=max_length,
+            add_special_tokens=True
+        )
+        inputs = {key: val.to(self.device) for key, val in inputs.items()}
+        with torch.no_grad():
+            outputs = self.model(**inputs)
+        last_hidden_state = outputs.last_hidden_state
+        attention_mask = inputs['attention_mask']
+        valid_positions = attention_mask[0].bool()
+        sequence_embeddings = last_hidden_state[0][valid_positions]
+        mean_embedding = torch.mean(sequence_embeddings, dim=0)
+        embedding_np = mean_embedding.cpu().numpy()
+        normalized_embedding = normalize_l2(embedding_np)
+        validated_embedding = self.validate_embedding(normalized_embedding.tolist())
+        return validated_embedding
+
+    def get_batch_embeddings(self, sequences: List[str], batch_size: int = 8, max_length: int = 1024) -> List[List[float]]:
+        all_embeddings = []
+        for i in range(0, len(sequences), batch_size):
+            batch_sequences = sequences[i:i + batch_size]
+            processed_sequences = []
+            for seq in batch_sequences:
+                seq = re.sub(r'[^A-Z]', '', seq.upper())
+                seq = re.sub(r'[UZOB]', 'X', seq)
+                if len(seq) > max_length - 2:
+                    seq = seq[:max_length - 2]
+                processed_sequences.append(' '.join(list(seq)))
+            inputs = self.tokenizer(
+                processed_sequences,
+                return_tensors="pt",
+                padding=True,
+                truncation=True,
+                max_length=max_length,
+                add_special_tokens=True
+            )
+            inputs = {key: val.to(self.device) for key, val in inputs.items()}
+            with torch.no_grad():
+                outputs = self.model(**inputs)
+            last_hidden_state = outputs.last_hidden_state
+            attention_mask = inputs['attention_mask']
+            for i in range(last_hidden_state.size(0)):
+                valid_positions = attention_mask[i].bool()
+                sequence_embeddings = last_hidden_state[i][valid_positions]
+                mean_embedding = torch.mean(sequence_embeddings, dim=0)
+                embedding_np = mean_embedding.cpu().numpy()
+                normalized_embedding = normalize_l2(embedding_np)
+                validated_embedding = self.validate_embedding(normalized_embedding.tolist())
+                all_embeddings.append(validated_embedding)
+            if self.device.type in ['cuda', 'mps']:
+                torch.cuda.empty_cache() if self.device.type == 'cuda' else None
+        return all_embeddings
+
 def get_embedder(model_name: str) -> ProteinEmbedder:
     """Factory function to get the appropriate embedder."""
     try:
@@ -249,6 +304,8 @@ def get_embedder(model_name: str) -> ProteinEmbedder:
             return ESM2Embedder(model_name="facebook/esm2_t12_35M_UR50D")
         elif model_name.lower() == "esm2_large":
             return ESM2Embedder(model_name="facebook/esm2_t36_3B_UR50D")
+        elif model_name.lower() == "prot_t5":
+            return ProtT5Embedder()
         else:
             raise ValueError(f"Unknown model name: {model_name}")
     except Exception as e:

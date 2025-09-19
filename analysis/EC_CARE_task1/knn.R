@@ -1,10 +1,14 @@
-library(caret)
+# library(caret)
 library(class)
 
-setwd("/Users/rashedulislam/Documents/git_repos/ProtSEC/analysis/EC_CARE_task1/")
+# setwd("/Users/rashedulislam/Documents/git_repos/ProtSEC/analysis/EC_CARE_task1/")
+setwd("//wsl$/Ubuntu/home/rashedul/project/ProSEC/analysis/EC_CARE_task1/")
 
-dist_mat = read.csv("./fastas/sample_2000_ProtSEC_matrix.csv",  row.names = 1)
-# dist_mat = read.csv("./fastas/esm2_small_dis_matrix.csv",  row.names = 1)
+# dist_mat = read.csv("./fastas/sample_30-50_5000_ProtSEC.csv.gz",  row.names = 1)
+dist_mat = read.csv("./fastas/sample_30-50_5000_esm2small.csv",  row.names = 1)
+# dist_mat = read.csv("./fastas/sample_30-50_5000_esm2large.csv.gz",  row.names = 1)
+# dist_mat = read.csv("./fastas/sample_30-50_5000_protbert.csv.gz",  row.names = 1)
+# dist_mat = read.csv("../../prot_bert_dis_matrix.csv",  row.names = 1)
 
 print(dist_mat[1:5, 1:5])
 dim(dist_mat)
@@ -32,6 +36,7 @@ length(train_labels)
 
 ## Prepare test data 
 test_metadata = read.csv("30-50_protein_test.csv")
+# test_metadata = read.csv("30_protein_test.csv")
 print(test_metadata[1:5, 1:5])
 dim(test_metadata) 
 
@@ -56,23 +61,45 @@ print(length(test_labels))
 print(nrow(test_mat))
 
 # Run k-NN
-set.seed(123) #31.43
+set.seed(123) 
+
 knn_pred <- knn(train = train_mat, test = test_mat, cl = train_labels, k = 5)
 
 # Create confusion matrix
 conf_matrix <- table(Predicted = knn_pred, Actual = test_labels)
 print(conf_matrix)
 
-# Calculate accuracy
+## Calculate accuracy
+
+# EC1 accuracy with 30-50%
+# ProtSEC gives 38.46 % acc
+# esm2 small gives 33.39 % acc
+# esm2 large gives 25.71 % acc
+# protbert gives 20.18 % acc
+
 total_predictions <- sum(conf_matrix)
 correct_predictions <- sum(diag(conf_matrix))
 accuracy <- (correct_predictions / total_predictions) * 100
 
-print(paste("Total predictions:", total_predictions))
-print(paste("Correct predictions:", correct_predictions))
-print(paste("Accuracy:", round(accuracy, 2), "%"))
+# print(paste("Total predictions:", total_predictions))
+# print(paste("Correct predictions:", correct_predictions))
+# print(paste("Accuracy:", round(accuracy, 2), "%"))
 
 # knn gives different acc everytime i run it. 
+
+# Run k-NN 5 times and calculate average accuracy
+accuracies <- numeric(5)
+for (i in 1:5) {
+  knn_pred <- knn(train = train_mat, test = test_mat, cl = train_labels, k = 5)
+  conf_matrix <- table(Predicted = knn_pred, Actual = test_labels)
+  total_predictions <- sum(conf_matrix)
+  correct_predictions <- sum(diag(conf_matrix))
+  accuracies[i] <- (correct_predictions / total_predictions) * 100
+  print(paste("Run", i, "accuracy:", round(accuracies[i], 2), "%"))
+}
+
+average_accuracy <- mean(accuracies)
+print(paste("Average accuracy over 5 runs:", round(average_accuracy, 2), "%"))
 
 # ## Example code
 # # Create example matrix for k-NN testing
@@ -122,3 +149,34 @@ print(paste("Accuracy:", round(accuracy, 2), "%"))
 # # Create confusion matrix
 # conf_matrix <- table(Predicted = knn_pred, Actual = y_test)
 # conf_matrix
+
+## blastp analysis
+
+# training_metadata = read.csv("protein_train.csv")
+# test_metadata = read.csv("30-50_protein_test.csv")
+# blastp_results = read.csv("./fastas/blastp_30-50.txt", header = FALSE, sep = "\t")
+
+# # Extract query (test) and subject (training) sequence IDs from BLASTP results
+# query_ids <- blastp_results[,1]
+# subject_ids <- blastp_results[,2]
+
+# # Get EC1 values for query sequences
+# query_ec1 <- test_metadata$EC1[match(query_ids, test_metadata$Entry)]
+
+# # Get EC1 values for subject sequences
+# subject_ec1 <- training_metadata$EC1[match(subject_ids, training_metadata$Entry)]
+
+# # Calculate matches
+# exact_matches <- sum(query_ec1 == subject_ec1, na.rm=TRUE)
+# total_queries <- length(query_ec1)
+# accuracy <- (exact_matches / total_queries) * 100
+
+# # Print results
+# print(paste("Total queries:", total_queries))
+# print(paste("Exact EC1 matches:", exact_matches))
+# print(paste("Accuracy:", round(accuracy, 2), "%"))
+
+# # testing script- script is correct
+# head(blastp_results)
+# test_metadata[test_metadata$Entry == "O47478", c("Entry", "EC1")]
+# training_metadata[training_metadata$Entry == "Q4WHW0", c("Entry", "EC1")]
