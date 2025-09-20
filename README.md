@@ -95,7 +95,7 @@ python3 get_plm_dist_mat.py -i data/phylogeny/FFP/17-BetaSet_edited.fasta -m esm
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
 ### 6. Citation
-Raju RS and Rashedul I. [ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Fsdy Fourier Transform. (2025)](https://www.biorxiv.org/content/10.1101/2025.08.17.670693v1).
+Raju RS and Rashedul I. [ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Fast Fourier Transform. (2025)](https://www.biorxiv.org/content/10.1101/2025.08.17.670693v1).
 
 ### 7. License
 Shield: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
