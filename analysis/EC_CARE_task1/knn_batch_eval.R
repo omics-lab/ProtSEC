@@ -3,7 +3,7 @@ library(class)
 setwd("//wsl$/Ubuntu/home/rashedul/project/ProSEC/analysis/EC_CARE_task1/")
 
 # List all model output files
-dist_files <- list.files("./fastas", pattern = "^sample_30-50_5000_.*\\.csv$", full.names = TRUE)
+dist_files <- list.files("./fastas", pattern = "^sample_30-50_2000_.*\\.csv$", full.names = TRUE)
 
 # Load training metadata
 training_metadata <- read.csv("protein_train.csv")
@@ -23,9 +23,10 @@ results <- data.frame(
 
 for (dist_file in dist_files) {
   # Extract model name from file
-  model_name <- sub(".*sample_30-50_5000_(.*)\\.csv$", "\\1", dist_file)
+  model_name <- sub(".*sample_30-50_2000_(.*)\\.csv$", "\\1", dist_file)
   
   # Read distance matrix
+  print(paste("Processing model:", model_name))
   dist_mat <- read.csv(dist_file, row.names = 1)
   dist_mat_proteins <- rownames(dist_mat)
   training_proteins <- training_metadata$Entry
@@ -71,4 +72,4 @@ for (dist_file in dist_files) {
 }
 
 # Save results to CSV
-write.csv(results, "knn_accuracy_summary_sample_30-50_500.csv", row.names = FALSE)
+write.csv(results, "knn_accuracy_summary_sample_30-50_2000.csv", row.names = FALSE)

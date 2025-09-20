@@ -5,17 +5,19 @@ library(class)
 setwd("//wsl$/Ubuntu/home/rashedul/project/ProSEC/analysis/EC_CARE_task1/")
 
 # dist_mat = read.csv("./fastas/sample_30-50_5000_ProtSEC.csv.gz",  row.names = 1)
-dist_mat = read.csv("./fastas/sample_30-50_5000_esm2small.csv",  row.names = 1)
-# dist_mat = read.csv("./fastas/sample_30-50_5000_esm2large.csv.gz",  row.names = 1)
+# dist_mat = read.csv("./fastas/sample_30-50_5000_esm2small.csv",  row.names = 1)
+dist_mat = read.csv("./fastas/sample_30-50_5000_esm2large.csv.gz",  row.names = 1)
 # dist_mat = read.csv("./fastas/sample_30-50_5000_protbert.csv.gz",  row.names = 1)
-# dist_mat = read.csv("../../prot_bert_dis_matrix.csv",  row.names = 1)
+# dist_mat = read.csv("./fastas/sample_30-50_5000_prott5.csv",  row.names = 1)
 
-print(dist_mat[1:5, 1:5])
-dim(dist_mat)
+# dist_mat = read.csv("../../prot_bert_dis_matrix.csv",  row.names = 1)
+# dist_mat = read.csv("../../esm2_small_dis_matrix.csv",  row.names = 1)
+
+# print(dist_mat[1:5, 1:5])
 
 ## Prepare training data
 training_metadata = read.csv("protein_train.csv")
-print(training_metadata[1:5, 1:5])
+# print(training_metadata[1:5, 1:5])
 
 # Get intersection of distance matrix and training data entries
 dist_mat_proteins <- rownames(dist_mat)
@@ -23,26 +25,27 @@ training_proteins <- training_metadata$Entry
 
 # Find common proteins
 common_train_proteins <- intersect(dist_mat_proteins, training_proteins)
-length(common_train_proteins)
+# length(common_train_proteins)
 
 # Filter distance matrix to keep only rows for common proteins (all columns)
 train_mat <- dist_mat[common_train_proteins, common_train_proteins]
-print(train_mat[1:5, 1:5]) 
+# print(train_mat[1:5, 1:5]) 
+print(" train matrix dimensions:") 
 dim(train_mat)
 
 # Extract labels in the same order as train_mat rows
 train_labels <- training_metadata$EC1[match(rownames(train_mat), training_metadata$Entry)]
-length(train_labels)
+# length(train_labels)
 
 ## Prepare test data 
 test_metadata = read.csv("30-50_protein_test.csv")
 # test_metadata = read.csv("30_protein_test.csv")
-print(test_metadata[1:5, 1:5])
+# print(test_metadata[1:5, 1:5])
 dim(test_metadata) 
 
 # Get intersection of distance matrix and test data entries
 test_proteins <- test_metadata$Entry
-length(test_proteins)
+# length(test_proteins)
 
 # Find common proteins between test data and distance matrix
 common_test_proteins <- intersect(dist_mat_proteins, test_proteins)
@@ -50,7 +53,8 @@ length(common_test_proteins)
 
 # Filter distance matrix to keep only rows for common test proteins (all columns)
 test_mat <- dist_mat[common_test_proteins, common_train_proteins]
-print(test_mat[1:5, 1:5]) 
+# print(test_mat[1:5, 1:5])
+print(" test matrix dimensions:") 
 dim(test_mat)
 
 # Extract test labels in the same order as test_mat rows
@@ -81,25 +85,10 @@ total_predictions <- sum(conf_matrix)
 correct_predictions <- sum(diag(conf_matrix))
 accuracy <- (correct_predictions / total_predictions) * 100
 
-# print(paste("Total predictions:", total_predictions))
-# print(paste("Correct predictions:", correct_predictions))
-# print(paste("Accuracy:", round(accuracy, 2), "%"))
+print(paste("Total predictions:", total_predictions))
+print(paste("Correct predictions:", correct_predictions))
+print(paste("Accuracy:", round(accuracy, 2), "%"))
 
-# knn gives different acc everytime i run it. 
-
-# Run k-NN 5 times and calculate average accuracy
-accuracies <- numeric(5)
-for (i in 1:5) {
-  knn_pred <- knn(train = train_mat, test = test_mat, cl = train_labels, k = 5)
-  conf_matrix <- table(Predicted = knn_pred, Actual = test_labels)
-  total_predictions <- sum(conf_matrix)
-  correct_predictions <- sum(diag(conf_matrix))
-  accuracies[i] <- (correct_predictions / total_predictions) * 100
-  print(paste("Run", i, "accuracy:", round(accuracies[i], 2), "%"))
-}
-
-average_accuracy <- mean(accuracies)
-print(paste("Average accuracy over 5 runs:", round(average_accuracy, 2), "%"))
 
 # ## Example code
 # # Create example matrix for k-NN testing

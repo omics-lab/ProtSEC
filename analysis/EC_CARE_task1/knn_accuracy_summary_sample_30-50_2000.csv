@@ -1,0 +1,11 @@
+"Model","TestSet","TotalPredictions","CorrectPredictions","Accuracy"
+"esm2large","30-50_protein_test.csv",560,131,23.54
+"esm2large","30_protein_test.csv",432,103,24.91
+"esm2small","30-50_protein_test.csv",560,163,29.25
+"esm2small","30_protein_test.csv",432,114,26.71
+"protbert","30-50_protein_test.csv",560,124,22.18
+"protbert","30_protein_test.csv",432,91,20.37
+"ProtSEC","30-50_protein_test.csv",560,174,31.04
+"ProtSEC","30_protein_test.csv",432,99,23.61
+"prott5","30-50_protein_test.csv",560,197,34.46
+"prott5","30_protein_test.csv",432,138,30.97

@@ -29,3 +29,17 @@ analysis/EC_CARE_task1/fastas/sample_30-50_5000_esm2small.csv
 analysis/EC_CARE_task1/fastas/sample_30-50_5000_esm2small.csv.gz
 analysis/EC_CARE_task1/fastas/sample_30-50_5000_esm2large.csv.gz
 analysis/EC_CARE_task1/fastas/sample_30-50_5000_protbert.csv.gz
+venv/lib/python3.12/site-packages/nvidia/nccl/lib/libnccl.so.2
+venv/lib/python3.12/site-packages/xgboost/lib/libxgboost.so
+.git/objects/pack/pack-bc849c72fc67bf35989c6304ebad48bc6ef005d9.pack
+.git/objects/pack/pack-0cad82c10f2a9d5fa12f8a9284b271f2cd937c10.pack
+.git/objects/pack/pack-5a2eb867114960fbde3e2412c842a2669d07c939.pack
+prot_bert_dis_matrix.csv
+analysis/EC_CARE_task1/fastas/sample_30-50_5000_esm2small.csv
+analysis/EC_CARE_task1/fastas/backup/sample_30-50_5000_esm2small.csv.gz
+analysis/EC_CARE_task1/fastas/sample_30-50_5000_prott5.csv
+analysis/EC_CARE_task1/fastas/sample_30-50_5000_ProtSEC.csv
+analysis/EC_CARE_task1/fastas/sample_30-50_2000_esm2large.csv
+analysis/EC_CARE_task1/fastas/sample_30-50_5000_esm2large.csv
+analysis/EC_CARE_task1/fastas/sample_30-50_5000_protbert.csv
+esm2_small_dis_matrix.csv

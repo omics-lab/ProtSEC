@@ -42,7 +42,7 @@ pip install -r requirements.txt
 # Available dimensionality reduction methods: `MDS`, `t-SNE`, `UMAP`
 # Dist functions: `SMS`, `ASMP`, `SNN`
 
-python3 db_build.py \
+python3 protsec.py \
     --fasta_path ./data/DB.fasta \
     --dim_reduct MDS \
     --dist_func SMS \
@@ -95,7 +95,16 @@ python3 get_plm_dist_mat.py -i data/phylogeny/FFP/17-BetaSet_edited.fasta -m esm
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
 ### 6. Citation
-Raju RS and Rashedul I. ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Fsdy Fourier Transform. (2025).
+Raju RS and Rashedul I. [ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Fsdy Fourier Transform. (2025)](https://www.biorxiv.org/content/10.1101/2025.08.17.670693v1).
 
 ### 7. License
-This project is under the MIT license.
+Shield: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial 4.0 International License][cc-by-nc].
+
+[![CC BY-NC 4.0][cc-by-nc-image]][cc-by-nc]
+
+[cc-by-nc]: https://creativecommons.org/licenses/by-nc/4.0/
+[cc-by-nc-image]: https://licensebuttons.net/l/by-nc/4.0/88x31.png
+[cc-by-nc-shield]: https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg

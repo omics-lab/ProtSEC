@@ -3,7 +3,7 @@
 # Clone the repo from here (https://github.com/Rajan-sust/GeneAnnotation) and run the benchmarking. 
 
 GeneAnnotation=/mnt/c/GeneAnnotation
-output=/home/rashedul/project/ProSEC/benchmark/AI-Embedding/
+output= /home/rashedul/project/ProSEC/analysis/similarity_search/AI-Embedding/
 
 cd $GeneAnnotation
 
