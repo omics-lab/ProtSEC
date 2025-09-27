@@ -2,7 +2,7 @@
 **ProtSEC** (**Prot**ein **S**equence **E**mbedding in **C**omplex Space) is an ultrafast method for embedding protein sequences using the discrete Fourier transform. Unlike large protein language models (PLMs), ProtSEC requires no training on sequence data. It is 20,000× faster and uses 85× less memory compared to the popular models like esm2_3B, esm2_35M, prot_t5 and prot_bert. ProtSEC is lightweight enough to run on personal or laptop computers, even for processing large protein sequence datasets. 
 
 <p align="center">
-  <img src="./analysis/plots/figures_ProtSEC/figure.1_v5_github.jpeg" width="800"/>
+  <img src="./analysis/figures_ProtSEC/github.jpeg" width="800"/>
 </p>
 
 ### 1. Requirement
