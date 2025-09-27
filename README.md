@@ -2,7 +2,7 @@
 **ProtSEC** (**Prot**ein **S**equence **E**mbedding in **C**omplex Space) is an ultrafast method for embedding protein sequences using the discrete Fourier transform. Unlike large protein language models (PLMs), ProtSEC requires no training on sequence data. It is 20,000× faster and uses 85× less memory compared to the popular models like esm2_3B, esm2_35M, prot_t5 and prot_bert. ProtSEC is lightweight enough to run on personal or laptop computers, even for processing large protein sequence datasets. 
 
 <p align="center">
-  <img src="./data/plots/figures_ProtSEC/figure.1_v5_github.jpeg" width="800"/>
+  <img src="./analysis/plots/figures_ProtSEC/figure.1_v5_github.jpeg" width="800"/>
 </p>
 
 ### 1. Requirement
@@ -70,7 +70,7 @@ python3 annotate.py --input_faa ./data/QUERY.fasta \
 `-n` : Dimension of the embedding. If you're working with a multi-FASTA file containing sequences of varying lengths, use the 75th percentile of sequence lengths. Otherwise, use the actual sequence length. Default is 1024.
 
 ```
-python3 get_phase_dist_mat.py -n 1024 -i phosphatase.fa -o ProtSEC_matrix.csv
+python3 get_phase_dist_mat_optimized.py -n 1024 -i phosphatase.fa -o ProtSEC_matrix.csv
 ```
 
 ### 4. Benchmark 
@@ -88,7 +88,7 @@ Code to run 'esm2_small', 'esm2_large', 'prot_bert', 'prot_t5' is available [her
 
 ```
 pip install biopython transformers torch sentencepiece
-python3 get_plm_dist_mat.py -i data/phylogeny/FFP/17-BetaSet_edited.fasta -m esm2_small
+python3 get_plm_dist_mat_optimized.py -i data/phylogeny/FFP/17-BetaSet_edited.fasta -m esm2_small
 ```
 
 ### 5. Contact
