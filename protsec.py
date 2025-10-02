@@ -15,8 +15,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument('--fasta_path', type=str, required=True, help='Path to input FASTA file')
     parser.add_argument('--dim', type=int, default=1024, help='Dimensionality of the embeddings')
-    parser.add_argument('--num_threads', type=int, default=multiprocessing.cpu_count(), 
-                       help='Number of worker threads to use (default: number of CPU cores)')
+    parser.add_argument('--num_threads', type=int, default=max(1, multiprocessing.cpu_count() // 4), 
+                       help='Number of worker threads to use (default: 1/4 of CPU cores)')
     parser.add_argument('--dim_reduct', type=str, default='MDS', choices=['UMAP', 't-SNE', 'MDS'],
                         help='Algorithm for dimensionality reduction')
     parser.add_argument('--dist_func', type=str, default='ASMP', choices=['SMS', 'ASMP', 'SNN'], 

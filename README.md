@@ -59,13 +59,25 @@ options:
                         Path to input FASTA file (default: None)
   --dim DIM             Dimensionality of the embeddings (default: 1024)
   --num_threads NUM_THREADS
-                        Number of worker threads to use (default: number of CPU cores) (default: 24)
+                        Number of worker threads to use (default: 1/4 of CPU cores) (default: 6)
   --dim_reduct {UMAP,t-SNE,MDS}
                         Algorithm for dimensionality reduction (default: MDS)
   --dist_func {SMS,ASMP,SNN}
                         Distance function for computing distance (default: ASMP)
   --out_file OUT_FILE   Output file path for the embeddings (default: protein_embedding_ProtSEC.pkl)
 ```
+
+- Generate phase correlation matrix using ProtSEC
+
+`-n` : Dimension of the embedding. If you're working with a multi-FASTA file containing sequences of varying lengths, use the 75th percentile of sequence lengths. Otherwise, use the actual sequence length. Default is 1024.
+
+```
+python3 get_phase_dist_mat_optimized.py -n 1024 -i phosphatase.fa -o ProtSEC_matrix.csv
+```
+
+### 4. Benchmark 
+
+- Benchmarking used in the manuscript
 
 - Protein sequence similarity search
 
@@ -80,18 +92,6 @@ python3 annotate.py --input_faa ./data/QUERY.fasta \
     --top_hit 1 \
     --out ./data/result.tsv
 ```
-
-- Generate phase correlation matrix using ProtSEC
-
-`-n` : Dimension of the embedding. If you're working with a multi-FASTA file containing sequences of varying lengths, use the 75th percentile of sequence lengths. Otherwise, use the actual sequence length. Default is 1024.
-
-```
-python3 get_phase_dist_mat_optimized.py -n 1024 -i phosphatase.fa -o ProtSEC_matrix.csv
-```
-
-### 4. Benchmark 
-
-- Benchmarking used in the manuscript
 
 ```
 bash ./benchmark/benchmark.sh
@@ -114,7 +114,7 @@ Rashedul Islam, PhD (rashedul.gen@gmail.com)
 Raju RS and Rashedul I. [ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Fast Fourier Transform. (2025)](https://www.biorxiv.org/content/10.1101/2025.08.17.670693v1).
 
 ### 7. License
-Shield: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
+[![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
 This work is licensed under a
 [Creative Commons Attribution-NonCommercial 4.0 International License][cc-by-nc].
