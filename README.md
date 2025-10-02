@@ -75,45 +75,13 @@ options:
 python3 get_phase_dist_mat_optimized.py -n 1024 -i phosphatase.fa -o ProtSEC_matrix.csv
 ```
 
-### 4. Benchmark 
-
-- Benchmarking used in the manuscript
-
-- Protein sequence similarity search
-
-Output `result.tsv` contains score in the 3rd column which is correlation value between query and hit.
-
-```
-python3 annotate.py --input_faa ./data/QUERY.fasta \
-    --db ./DB/mds_sms_db.pkl \
-    --dim_reduct MDS \
-    --dist_func SMS \
-    --dim 1024 \
-    --top_hit 1 \
-    --out ./data/result.tsv
-```
-
-```
-bash ./benchmark/benchmark.sh
-```
-
-- PLM Embedding
-Code to run 'esm2_small', 'esm2_large', 'prot_bert', 'prot_t5' is available [here](https://github.com/Rajan-sust/GeneAnnotation) 
-
-- Generate PLM Based Distance matrix
-
-```
-pip install biopython transformers torch sentencepiece
-python3 get_plm_dist_mat_optimized.py -i data/phylogeny/FFP/17-BetaSet_edited.fasta -m esm2_small
-```
-
-### 5. Contact
+### 4. Contact
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
-### 6. Citation
+### 5. Citation
 Raju RS and Rashedul I. [ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Fast Fourier Transform. (2025)](https://www.biorxiv.org/content/10.1101/2025.08.17.670693v1).
 
-### 7. License
+### 6. License
 [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
 This work is licensed under a
