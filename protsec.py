@@ -14,15 +14,14 @@ def parse_args() -> argparse.Namespace:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument('--fasta_path', type=str, required=True, help='Path to input FASTA file')
-    parser.add_argument('--dim', type=int, required=True, help='Dimensionality of the embeddings')
-    parser.add_argument('--num_workers', type=int, default=multiprocessing.cpu_count(), 
+    parser.add_argument('--dim', type=int, default=1024, help='Dimensionality of the embeddings')
+    parser.add_argument('--num_threads', type=int, default=multiprocessing.cpu_count(), 
                        help='Number of worker threads to use (default: number of CPU cores)')
     parser.add_argument('--dim_reduct', type=str, default='MDS', choices=['UMAP', 't-SNE', 'MDS'],
-                        help='Algorithm for dimensionality reduction (default: t-SNE)')
+                        help='Algorithm for dimensionality reduction')
     parser.add_argument('--dist_func', type=str, default='ASMP', choices=['SMS', 'ASMP', 'SNN'], 
-                        help='Distance function for computing distance matrix (default: SMS)')
-    parser.add_argument('--db_dir_path', type=str, default='DB', help='Directory to save the database')
-    parser.add_argument('--db_filename', type=str, default='protein_data.pkl', help='Filename of the database')
+                        help='Distance function for computing distance')
+    parser.add_argument('--out_file', type=str, default='protein_embedding_ProtSEC.pkl', help='Output file path for the embeddings')
     args = parser.parse_args()
 
     # Validate arguments
@@ -50,7 +49,7 @@ def main():
     args = parse_args()
     fasta_path = args.fasta_path
     dim = args.dim
-    num_workers = args.num_workers
+    num_threads = args.num_threads
 
     # dimension reduction method
     dim_reduct = args.dim_reduct
@@ -59,7 +58,7 @@ def main():
     dist_func = args.dist_func
     print(f"Using distance function: {dist_func}")
     
-    print(f"Using {num_workers} worker threads")
+    print(f"Using {num_threads} worker threads")
     
     # Initialize the encoder
     protein_encoder = ProteinEmbedder(dim_reduct, dist_func, dim)
@@ -72,7 +71,7 @@ def main():
     list_of_vectors = []
     cnt = 0
     # Process sequences in parallel using ThreadPoolExecutor
-    with ThreadPoolExecutor(max_workers=num_workers) as executor:
+    with ThreadPoolExecutor(max_workers=num_threads) as executor:
         # Submit all encoding tasks to the executor
         futures = [
             executor.submit(encode_sequence, seq, protein_encoder) for seq in sequences
@@ -92,18 +91,16 @@ def main():
     
     print(f"Successfully encoded {len(list_of_vectors)} sequences")
     
-    db_path = Path(args.db_dir_path)  # Replace 'DB' with your directory path
-    if not db_path.exists():
-        db_path.mkdir(parents=True, exist_ok=True)
+    out_file_path = Path(args.out_file)
+    # Create parent directories if they don't exist
+    out_file_path.parent.mkdir(parents=True, exist_ok=True)
     
     # Save the list of vectors to a file
-    db_filename = args.db_filename
-    db_path = db_path / db_filename
-    print(f"Saving database to: {db_path}")
-    with open(db_path, 'wb') as f:
+    print(f"Saving embedding to: {out_file_path}")
+    with open(out_file_path, 'wb') as f:
         pickle.dump(list_of_vectors, f)
     
-    print(f"Database saved successfully to {db_path}")
+    print(f"Embedding saved successfully to {out_file_path}")
     
 
 if __name__ == '__main__':

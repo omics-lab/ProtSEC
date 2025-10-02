@@ -38,17 +38,33 @@ pip install -r requirements.txt
 
 - Generate complex embedding using a FASTA file
 
-```
-# Available dimensionality reduction methods: `MDS`, `t-SNE`, `UMAP`
-# Dist functions: `SMS`, `ASMP`, `SNN`
 
+```
 python3 protsec.py \
-    --fasta_path ./data/DB.fasta \
-    --dim_reduct MDS \
-    --dist_func SMS \
-    --dim 1024 \
-    --db_dir_path ./DB \
-    --db_filename mds_sms_db.pkl
+    --fasta_path ./analysis/uniprot_data/uniprot_sprot_5000.fasta
+```
+
+#### Usage
+
+```
+python protsec.py -h
+usage: protsec.py [-h] --fasta_path FASTA_PATH [--dim DIM] [--num_threads NUM_THREADS] [--dim_reduct {UMAP,t-SNE,MDS}] [--dist_func {SMS,ASMP,SNN}]
+                  [--out_file OUT_FILE]
+
+Build protein vector database from FASTA file
+
+options:
+  -h, --help            show this help message and exit
+  --fasta_path FASTA_PATH
+                        Path to input FASTA file (default: None)
+  --dim DIM             Dimensionality of the embeddings (default: 1024)
+  --num_threads NUM_THREADS
+                        Number of worker threads to use (default: number of CPU cores) (default: 24)
+  --dim_reduct {UMAP,t-SNE,MDS}
+                        Algorithm for dimensionality reduction (default: MDS)
+  --dist_func {SMS,ASMP,SNN}
+                        Distance function for computing distance (default: ASMP)
+  --out_file OUT_FILE   Output file path for the embeddings (default: protein_embedding_ProtSEC.pkl)
 ```
 
 - Protein sequence similarity search
