@@ -62,8 +62,6 @@ python3 get_plm_dist_mat_optimized.py -i data/phylogeny/FFP/17-BetaSet_edited.fa
 - PLM Embedding
 Code to run 'esm2_small', 'esm2_large', 'prot_bert', 'prot_t5' is available [here](https://github.com/Rajan-sust/GeneAnnotation) 
 
-### Contact
-Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
 ### Citation
 Raju RS and Rashedul I. [ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Fast Fourier Transform. (2025)](https://www.biorxiv.org/content/10.1101/2025.08.17.670693v1). 
