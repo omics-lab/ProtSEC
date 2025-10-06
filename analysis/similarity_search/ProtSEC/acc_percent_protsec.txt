@@ -1,0 +1,5 @@
+uniprot_sprot_10000.fasta_db.pkl_protsec_result.tsv.tophit	2624	52.48
+uniprot_sprot_20000.fasta_db.pkl_protsec_result.tsv.tophit	2975	59.5
+uniprot_sprot_40000.fasta_db.pkl_protsec_result.tsv.tophit	3279	65.58
+uniprot_sprot_80000.fasta_db.pkl_protsec_result.tsv.tophit	3656	73.12
+uniprot_sprot_5000.fasta_db.pkl_protsec_result.tsv.tophit	5000	100

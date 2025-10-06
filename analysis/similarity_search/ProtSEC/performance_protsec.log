@@ -1,0 +1,81 @@
+data/uniprot_sprot_5000.fasta
+Using dimensionality reduction method: MDS
+Using distance function: SMS
+Using 24 worker threads
+Found 5000 sequences to encode
+Processed 100/5000 sequences
+Processed 200/5000 sequences
+Processed 300/5000 sequences
+Processed 400/5000 sequences
+Processed 500/5000 sequences
+Processed 600/5000 sequences
+Processed 700/5000 sequences
+Processed 800/5000 sequences
+Processed 900/5000 sequences
+Processed 1000/5000 sequences
+Processed 1100/5000 sequences
+Processed 1200/5000 sequences
+Processed 1300/5000 sequences
+Processed 1400/5000 sequences
+Processed 1500/5000 sequences
+Processed 1600/5000 sequences
+Processed 1700/5000 sequences
+Processed 1800/5000 sequences
+Processed 1900/5000 sequences
+Processed 2000/5000 sequences
+Processed 2100/5000 sequences
+Processed 2200/5000 sequences
+Processed 2300/5000 sequences
+Processed 2400/5000 sequences
+Processed 2500/5000 sequences
+Processed 2600/5000 sequences
+Processed 2700/5000 sequences
+Processed 2800/5000 sequences
+Processed 2900/5000 sequences
+Processed 3000/5000 sequences
+Processed 3100/5000 sequences
+Processed 3200/5000 sequences
+Processed 3300/5000 sequences
+Processed 3400/5000 sequences
+Processed 3500/5000 sequences
+Processed 3600/5000 sequences
+Processed 3700/5000 sequences
+Processed 3800/5000 sequences
+Processed 3900/5000 sequences
+Processed 4000/5000 sequences
+Processed 4100/5000 sequences
+Processed 4200/5000 sequences
+Processed 4300/5000 sequences
+Processed 4400/5000 sequences
+Processed 4500/5000 sequences
+Processed 4600/5000 sequences
+Processed 4700/5000 sequences
+Processed 4800/5000 sequences
+Processed 4900/5000 sequences
+Processed 5000/5000 sequences
+Successfully encoded 5000 sequences
+Saving database to: DB/uniprot_sprot_5000.fasta_db.pkl
+Database saved successfully to DB/uniprot_sprot_5000.fasta_db.pkl
+	Command being timed: "benchmark/PA-SigPro/performance_evoprot.sh"
+	User time (seconds): 4.21
+	System time (seconds): 0.42
+	Percent of CPU this job got: 451%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.02
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 421488
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 628
+	Minor (reclaiming a frame) page faults: 98342
+	Voluntary context switches: 19361
+	Involuntary context switches: 29
+	Swaps: 0
+	File system inputs: 136952
+	File system outputs: 322144
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

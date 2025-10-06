@@ -1,0 +1,8 @@
+pymilvus
+numpy
+transformers
+torch
+biopython
+pandas
+sentencepiece
+openai

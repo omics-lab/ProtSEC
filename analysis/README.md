@@ -5,9 +5,6 @@ Protein sequence similarity search benchmarking framework. Contains implementati
 
 **Key Scripts:**
 - `sim_search_benchmark.sh` - Main benchmarking pipeline
-- `dataset_preparation.py` - Dataset preprocessing
-- `data_download.sh` - Download benchmark datasets
-- `ncbi_nr_download.sh` - NCBI NR database download
 
 ```
 bash ./similarity_search/sim_search_benchmark.sh
@@ -32,6 +29,9 @@ UniProt database processing and sequence extraction utilities. Contains scripts 
 
 **Key Scripts:**
 - `extract_seq.py` - Sequence extraction and filtering utility
+- `dataset_preparation.py` - Dataset preprocessing
+- `data_download.sh` - Download benchmark datasets
+- `ncbi_nr_download.sh` - NCBI NR database download
 
 ### Others
 
