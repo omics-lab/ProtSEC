@@ -72,7 +72,8 @@ options:
 `-n` : Dimension of the embedding. If you're working with a multi-FASTA file containing sequences of varying lengths, use the 75th percentile of sequence lengths. Otherwise, use the actual sequence length. Default is 1024.
 
 ```
-python3 get_phase_dist_mat_optimized.py -n 1024 -i phosphatase.fa -o ProtSEC_matrix.csv
+fasta=./analysis/uniprot_datauniprot_sprot_5000.fasta
+python3 get_phase_dist_mat_optimized.py -n 1024 -i $fasta -o ProtSEC_matrix.csv
 ```
 
 ### 4. Contact
