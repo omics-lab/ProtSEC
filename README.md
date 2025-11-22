@@ -38,7 +38,7 @@ pip install -r requirements.txt
 ### 3. Run ProtSEC
 
 - Generate complex embedding using a FASTA file
-- Time: ~1 second on a personal computer
+- Time: ~1 second on a personal computer using the example data 
 - Output file: `protein_embedding_ProtSEC.pkl` (size ~80MB)
 
 ```
@@ -71,7 +71,7 @@ options:
 
 #### Generate pairwise phase correlation matrix using ProtSEC
 
-- To select the optimum embedding dimension `d`, please check the [recommendations here]("./analysis/select_dimension.md") 
+- To select the optimum embedding dimension `d`, please check the [recommendations here](https://github.com/omics-lab/ProtSEC/blob/main/analysis/select_dimension.md) 
 - Default `-d` is 1024
 - Time: ~1 minute for a total of 12,497,500 unique pairs using 8 threads on a personal computer
 
