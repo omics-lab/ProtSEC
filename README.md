@@ -40,7 +40,7 @@ pip install -r requirements.txt
 
 - Generate complex embedding using a FASTA file
 - Time: ~1 second on a personal computer
-- Output file: protein_embedding_ProtSEC.pkl (size ~80MB)
+- Output file: `protein_embedding_ProtSEC.pkl` (size ~80MB)
 
 ```
 python3 protsec.py \
@@ -70,9 +70,10 @@ options:
   --out_file OUT_FILE   Output file path for the embeddings (default: protein_embedding_ProtSEC.pkl)
 ```
 
-- Generate phase correlation matrix using ProtSEC
+#### Generate phase correlation matrix using ProtSEC
 
-`-n` : Dimension of the embedding. If you're working with a multi-FASTA file containing sequences of varying lengths, use the 75th percentile of sequence lengths. Otherwise, use the actual sequence length. Default is 1024.
+- To select the optimum dimension of the embedding `n`, please check the Methods section of the paper. 
+- Default `-n` is 1024.
 
 ```
 fasta=./analysis/uniprot_datauniprot_sprot_5000.fasta
