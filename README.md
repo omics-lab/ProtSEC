@@ -1,4 +1,4 @@
-## ProtSEC architecture for protein seqence embedding
+## ProtSEC architecture for protein sequence embedding
 **ProtSEC** (**Prot**ein **S**equence **E**mbedding in **C**omplex Space) is an ultrafast method for embedding protein sequences using the discrete Fourier transform. Unlike large protein language models (PLMs), ProtSEC requires no training on sequence data. It is 20,000× faster and uses 85× less memory compared to the popular models like esm2_3B, esm2_35M, prot_t5 and prot_bert. ProtSEC is lightweight enough to run on personal or laptop computers, even for processing large protein sequence datasets. 
 
 <p align="center">
@@ -7,26 +7,25 @@
 
 ### 1. Requirement
 
- - Python >= 3.10
- - Linux
- - macOS >= 13.5
+- Python >= 3.10
+- Linux or macOS >= 13.5
+- Minimum 10GB disk space
 
 ### 2. Installation
 
 - Clone the repository and navigate to the project directory
-- Minimum of 10GB disk space is required
 
-```sh
-git clone https://github.com/omics-lab/ProtSEC/
-cd ProtSEC/
-```
+   ```bash
+   git clone https://github.com/omics-lab/ProtSEC/
+   cd ProtSEC/
+   ```
 
 - Create a virtual environment and activate
 
-```
-python3 -m venv venv
-source venv/bin/activate
-```
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
 - Upgrade `pip` and install the required dependencies
 - Time: ~2 minute on a personal computer 
@@ -70,18 +69,43 @@ options:
   --out_file OUT_FILE   Output file path for the embeddings (default: protein_embedding_ProtSEC.pkl)
 ```
 
-#### Generate phase correlation matrix using ProtSEC
+#### Generate pairwise phase correlation matrix using ProtSEC
 
-- To select the optimum dimension of the embedding `n`, please check the Methods section of the paper. 
-- Default `-n` is 1024.
+- To select the optimum embedding dimension `d`, please check the [recommendations here]("./analysis/select_dimension.md") 
+- Default `-d` is 1024
+- Time: ~1 minute for a total of 12,497,500 unique pairs using 8 threads on a personal computer
+
+```bash
+fasta=./analysis/uniprot_data/uniprot_sprot_5000.fasta
+python3 get_phase_dist_mat_optimized.py -d 1024 -i $fasta -o ProtSEC_matrix.csv
+```
+
+#### Usage
 
 ```
-fasta=./analysis/uniprot_datauniprot_sprot_5000.fasta
-python3 get_phase_dist_mat_optimized.py -n 1024 -i $fasta -o ProtSEC_matrix.csv
+python3 get_phase_dist_mat_optimized.py -h
+usage: get_phase_dist_mat_optimized.py [-h] --input INPUT --output OUTPUT [--dim DIM] [--processes PROCESSES]
+                                       [--method {symmetric}]
+
+Compute pairwise distances of protein sequences from phase correlation (Optimized)
+
+options:
+  -h, --help            show this help message and exit
+  --input INPUT, -i INPUT
+                        Input FASTA file
+  --output OUTPUT, -o OUTPUT
+                        Output CSV file path
+  --dim DIM, -d DIM     FFT dimension (default: 1024)
+  --processes PROCESSES, -p PROCESSES
+                        Number of processes (default: auto)
+  --method {symmetric}, -m {symmetric}
+                        Optimization method: symmetric (always optimal)
 ```
 
 ### 4. Contact
-Rashedul Islam, PhD (rashedul.gen@gmail.com)
+
+Rashedul Islam, PhD  
+📧 [rashedul.gen@gmail.com](mailto:rashedul.gen@gmail.com)
 
 ### 5. Citation
 Raju RS and Rashedul I. [ProtSEC: Ultrafast Protein Sequence Embedding in Complex Space Using Fast Fourier Transform. (2025)](https://www.biorxiv.org/content/10.1101/2025.08.17.670693v1).

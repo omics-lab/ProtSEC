@@ -294,7 +294,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Compute pairwise distances of protein sequences from phase correlation (Optimized)')
     parser.add_argument('--input', '-i', required=True, help='Input FASTA file')
     parser.add_argument('--output', '-o', required=True, help='Output CSV file path')
-    parser.add_argument('--dim', '-n', type=int, default=1024, help='FFT dimension (default: 1024)')
+    parser.add_argument('--dim', '-d', type=int, default=1024, help='FFT dimension (default: 1024)')
     parser.add_argument('--processes', '-p', type=int, default=None, help='Number of processes (default: auto)')
     parser.add_argument('--method', '-m', choices=['symmetric'], default='symmetric', 
                        help='Optimization method: symmetric (always optimal)')
@@ -358,5 +358,5 @@ if __name__ == '__main__':
     print(f"  - Saving: {save_time:.2f}s ({save_time/total_time*100:.1f}%)")
 
 # Usage examples:
-# python3 get_phase_dist_mat_optimized.py -n 512 -i phosphatase.fa -o score_matrix_optimized.csv -m symmetric
-# python3 get_phase_dist_mat_optimized.py -n 512 -i phosphatase.fa -o score_matrix_optimized.csv -m vectorized -p 4
+# python3 get_phase_dist_mat_optimized.py -d 512 -i phosphatase.fa -o score_matrix_optimized.csv -m symmetric
+# python3 get_phase_dist_mat_optimized.py -d 512 -i phosphatase.fa -o score_matrix_optimized.csv -m vectorized -p 4
