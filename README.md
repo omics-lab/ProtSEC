@@ -14,7 +14,7 @@
 ### 2. Installation
 
 - Clone the repository and navigate to the project directory
-- Minimum of 10GB disk space required
+- Minimum of 10GB disk space is required
 
 ```sh
 git clone https://github.com/omics-lab/ProtSEC/
@@ -29,7 +29,7 @@ source venv/bin/activate
 ```
 
 - Upgrade `pip` and install the required dependencies
-- Time: ~2 minute in a personal computer 
+- Time: ~2 minute on a personal computer 
 
 ```
 pip install --upgrade pip
@@ -39,7 +39,7 @@ pip install -r requirements.txt
 ### 3. Run ProtSEC
 
 - Generate complex embedding using a FASTA file
-- Time: ~1 second in a personal computer
+- Time: ~1 second on a personal computer
 - Output file: protein_embedding_ProtSEC.pkl (size ~80MB)
 
 ```
