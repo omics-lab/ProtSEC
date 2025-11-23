@@ -15,22 +15,22 @@
 
 - Clone the repository and navigate to the project directory
 
-   ```bash
-   git clone https://github.com/omics-lab/ProtSEC/
-   cd ProtSEC/
-   ```
+```bash
+git clone https://github.com/omics-lab/ProtSEC/
+cd ProtSEC/
+```
 
 - Create a virtual environment and activate
 
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
 - Upgrade `pip` and install the required dependencies
-- Time: ~2 minute on a personal computer 
+- Time: ~2 minute on a personal computer
 
-```
+```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
@@ -41,7 +41,7 @@ pip install -r requirements.txt
 - Time: ~1 second on a personal computer using the example data 
 - Output file: `protein_embedding_ProtSEC.pkl` (size ~80MB)
 
-```
+```bash
 python3 protsec.py \
     --fasta_path ./analysis/uniprot_data/uniprot_sprot_5000.fasta
 ```
